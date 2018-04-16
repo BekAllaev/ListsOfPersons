@@ -10,6 +10,7 @@ namespace ListsOfPersons.Services.RepositoryService
     class PersonsRepositoryServiceFake : IRepositoryService<Person>
     {
         private List<Person> _persons;
+
         #region Implementation of IRepositoryService
         public Task AddAsync(Person entity)
         {
