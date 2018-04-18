@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Template10.Controls"
-    xmlns:models="using:UWP_CRUD_App.Models"
-    xmlns:local="using:UWP_CRUD_App.Views"
+    xmlns:models="using:ListsOfPersons.Models"
+    xmlns:local="using:ListsOfPersons.Views"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
