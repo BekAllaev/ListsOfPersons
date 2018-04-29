@@ -22,9 +22,16 @@ namespace ListsOfPersons.Services.RepositoryService
             throw new NotImplementedException();
         }
 
-        public Task<List<Person>> GetAllAsync()
+        /// <summary>
+        /// Return list of persons
+        /// </summary>
+        /// <returns>
+        /// If the list is null, return Task that return a list of persons
+        /// Otherwise return last readed list
+        /// </returns>
+        public async Task<List<Person>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _persons = _persons ?? await ReadPersonsAsync();
         }
 
         public Task<List<Person>> GetAllFavoriteAsync()

@@ -4,6 +4,9 @@ using ListsOfPersons.Services.SettingsServices;
 using Windows.ApplicationModel.Activation;
 using Template10.Controls;
 using Template10.Common;
+using GalaSoft.MvvmLight.Ioc;
+using ListsOfPersons.Services.RepositoryService;
+using ListsOfPersons.Models;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Data;
@@ -46,6 +49,9 @@ namespace ListsOfPersons
 
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
+            // Registering dependency in container
+            SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
+
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
         }
