@@ -12,7 +12,7 @@ namespace ListsOfPersons.Services.RepositoryService
     /// <typeparam name="T">
     /// Typically instance of Person class
     /// </typeparam>
-    interface IRepositoryService<T> where T : class
+    public interface IRepositoryService<T> where T : class
     {
         #region Read methods
         Task<List<T>> GetAllAsync();

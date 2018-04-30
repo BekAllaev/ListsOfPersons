@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ListsOfPersons.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -22,9 +23,16 @@ namespace ListsOfPersons.Views
     /// </summary>
     public sealed partial class MasterDetailPage : Page
     {
+        MasterDetailPageViewModel _viewModel;
+
         public MasterDetailPage()
         {
             this.InitializeComponent();
+        }
+
+        public MasterDetailPageViewModel ViewModel
+        {
+            get { return _viewModel ?? (_viewModel = (MasterDetailPageViewModel)DataContext); }
         }
     }
 }

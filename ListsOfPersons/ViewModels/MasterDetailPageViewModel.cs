@@ -10,7 +10,7 @@ using Template10.Mvvm;
 
 namespace ListsOfPersons.ViewModels
 {
-    class MasterDetailPageViewModel : ViewModelBase
+    public class MasterDetailPageViewModel : ViewModelBase
     {
         #region Fields
         ObservableCollection<Person> _personsList;

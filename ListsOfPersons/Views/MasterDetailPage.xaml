@@ -8,6 +8,7 @@
     xmlns:controls="using:Template10.Controls"
     xmlns:models="using:ListsOfPersons.Models"
     xmlns:local="using:ListsOfPersons.Views"
+    xmlns:MDPViewModel="using:ListsOfPersons.ViewModels"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -33,29 +34,34 @@
         <!--#region MasterDetailView templates-->
         <uwpkit:MasterDetailsView x:Name="MDView1"
                                   Grid.Row="1" 
-                                  NoSelectionContent="Chose item to view details">
+                                  NoSelectionContent="Choose item to view details"
+                                  ItemsSource="{Binding Person}">
             <!--#region ItemTemplate-->
             <uwpkit:MasterDetailsView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:Person">
                     <RelativePanel Margin="10">
                         <uwpkit:RoundImageEx x:Name="thumbnail" Width="48" Height="48"
                                        RelativePanel.AlignVerticalCenterWithPanel="True"
                                        Stretch="UniformToFill"
                                        IsCacheEnabled="True"
                                        PlaceholderStretch="UniformToFill"
-                                       CornerRadius="48"/>
+                                       CornerRadius="48" 
+                                       Source="{x:Bind PathToImage}"/>
                         <TextBlock x:Name="name" FontSize="18" FontWeight="Bold"
                                        RelativePanel.RightOf="thumbnail"
                                        RelativePanel.AlignTopWith="thumbnail"
-                                       Margin="16,0,0,0"/>
+                                       Margin="16,0,0,0" 
+                                       Text="{x:Bind Name}"/>
                         <TextBlock FontSize="18" FontWeight="Bold"
                                        RelativePanel.RightOf="name"
                                        RelativePanel.AlignTopWith="thumbnail"
-                                       Margin="10,0,0,0"/>
+                                       Margin="10,0,0,0"
+                                       Text="{x:Bind LastName}"/>
                         <TextBlock Margin="16,0,0,0"
                                        RelativePanel.Below="name" RelativePanel.AlignLeftWith="name"
                                        Opacity=".6" 
-                                       MaxLines="1" FontSize="16"/>
+                                       MaxLines="1" FontSize="16"
+                                       Text="{x:Bind Email}"/>
                     </RelativePanel>
                 </DataTemplate>
             </uwpkit:MasterDetailsView.ItemTemplate>
@@ -96,17 +102,17 @@
             <!--#region NoSelectionContentTemplate-->
             <uwpkit:MasterDetailsView.NoSelectionContentTemplate>
                 <DataTemplate>
-                    <StackPanel HorizontalAlignment="Center" 
+                    <StackPanel HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                         <SymbolIcon Symbol="Contact" 
-                                    RenderTransformOrigin=".5,.5" Foreground="Gray">
+                                    RenderTransformOrigin=".5,.5" Foreground="Black">
                             <SymbolIcon.RenderTransform>
-                                <CompositeTransform
-                                    ScaleX="4" 
-                                    ScaleY="4"/>
+                                <CompositeTransform 
+                                  ScaleX="4" 
+                                  ScaleY="4"/>
                             </SymbolIcon.RenderTransform>
                         </SymbolIcon>
-                        <TextBlock FontSize="24" Margin="0,22" Foreground="LightGray"/>
+                        <TextBlock Text="{Binding}" FontSize="24" Margin="0,22" Foreground="Black"/>
                     </StackPanel>
                 </DataTemplate>
             </uwpkit:MasterDetailsView.NoSelectionContentTemplate>
