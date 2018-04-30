@@ -23,13 +23,12 @@ namespace ListsOfPersons.Views
     /// </summary>
     public sealed partial class MasterDetailPage : Page
     {
-        MasterDetailPageViewModel _viewModel;
-
         public MasterDetailPage()
         {
             this.InitializeComponent();
         }
 
+        MasterDetailPageViewModel _viewModel;
         public MasterDetailPageViewModel ViewModel
         {
             get { return _viewModel ?? (_viewModel = (MasterDetailPageViewModel)DataContext); }
