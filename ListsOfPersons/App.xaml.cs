@@ -9,8 +9,11 @@ using ListsOfPersons.Services.RepositoryService;
 using ListsOfPersons.Models;
 using System;
 using System.Linq;
+using ListsOfPersons.Views;
+using ListsOfPersons.ViewModels;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
+using Template10.Services.NavigationService;
 
 namespace ListsOfPersons
 {
@@ -54,6 +57,20 @@ namespace ListsOfPersons
 
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="navigationService"></param>
+        /// <returns></returns>
+        public override INavigable ResolveForPage(Page page, NavigationService navigationService)
+        {
+            if (page is MasterDetailPage)
+                return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
+            else
+                return base.ResolveForPage(page, navigationService);
         }
     }
 }

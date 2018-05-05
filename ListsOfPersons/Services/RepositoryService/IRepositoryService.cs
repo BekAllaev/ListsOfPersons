@@ -10,7 +10,7 @@ namespace ListsOfPersons.Services.RepositoryService
     /// Consist of editing and read methods
     /// </summary>
     /// <typeparam name="T">
-    /// Typically instance of Person class
+    /// Model that will use as a parameter for methods
     /// </typeparam>
     public interface IRepositoryService<T> where T : class
     {

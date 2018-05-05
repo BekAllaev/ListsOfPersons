@@ -28,12 +28,12 @@
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
         <!--#endregion-->
-
+        
         <!--#region MasterDetailView templates-->
         <uwpkit:MasterDetailsView x:Name="MDView1"
                                   Grid.Row="1" 
                                   NoSelectionContent="Choose item to view details"
-                                  ItemsSource="{x:Bind ViewModel.Persons}">
+                                  ItemsSource="{Binding Persons}">
             <!--#region ItemTemplate-->
             <uwpkit:MasterDetailsView.ItemTemplate>
                 <DataTemplate x:DataType="models:Person">
