@@ -53,18 +53,13 @@ namespace ListsOfPersons
         public override async Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // Registering dependency in container
+            SimpleIoc.Default.Register<MasterDetailPageViewModel>();
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
 
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="navigationService"></param>
-        /// <returns></returns>
         public override INavigable ResolveForPage(Page page, NavigationService navigationService)
         {
             if (page is MasterDetailPage)

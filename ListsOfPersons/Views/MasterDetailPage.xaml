@@ -20,7 +20,7 @@
             <controls:PageHeader.PrimaryCommands>
                 <AppBarButton Icon="Add"/>
                 <AppBarButton Icon="Edit"/>
-                <AppBarButton Icon="Delete"/>
+                <AppBarButton Icon="Delete" Command="{Binding DeletePersonCommand}"/>
                 <AppBarButton Icon="Favorite"/>
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
@@ -33,6 +33,7 @@
         <uwpkit:MasterDetailsView x:Name="MDView1"
                                   Grid.Row="1" 
                                   NoSelectionContent="Choose item to view details"
+                                  SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"
                                   ItemsSource="{Binding Persons}">
             <!--#region ItemTemplate-->
             <uwpkit:MasterDetailsView.ItemTemplate>

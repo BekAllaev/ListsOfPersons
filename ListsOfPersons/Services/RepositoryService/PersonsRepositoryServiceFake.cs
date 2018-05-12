@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ListsOfPersons.Models;
+using GalaSoft.MvvmLight.Messaging;
+using ListsOfPersons.Messages;
+
 
 namespace ListsOfPersons.Services.RepositoryService
 {
@@ -17,9 +20,20 @@ namespace ListsOfPersons.Services.RepositoryService
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(string id)
+        /// <summary>
+        /// Remove item from list
+        /// </summary>
+        /// <param name="id">
+        /// ID of removing item
+        /// </param>
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            _persons.Remove(_persons.Find(a => a.Id == id));
+
+            await WritePersonsAsync();
+
+            var message = new PersonsChangedMessage() { OperationType = CRUD.Delete, ExceptionMessage = null };
+            Messenger.Default.Send<PersonsChangedMessage>(message);
         }
 
         /// <summary>
