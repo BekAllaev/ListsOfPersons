@@ -94,7 +94,23 @@ namespace ListsOfPersons.ViewModels
             };
             ContentDialogResult result = await OkCancelDialog.ShowAsync();
 
-            await _personsRepositary.DeleteAsync(SelectedPerson.Id);
+            try
+            {
+                if (result == ContentDialogResult.Primary)
+                    await _personsRepositary.DeleteAsync(SelectedPerson.Id);
+                else
+                    return;
+            }
+            catch (Exception e)
+            {
+                ContentDialog exceptionDialog = new ContentDialog
+                {
+                    Title = $"Invailid operation",
+                    Content=e.Message,
+                    PrimaryButtonText="OK"
+                };
+                await exceptionDialog.ShowAsync();
+            }
         }
 
         private bool CanDeletePerson() => SelectedPerson == null ? false : true;

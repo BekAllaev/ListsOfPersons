@@ -14,6 +14,9 @@ namespace ListsOfPersons.Services.RepositoryService
     {
         private List<Person> _persons;
 
+        private Person lastPerson;
+        private Person selectedPerson;
+
         #region Implementation of IRepositoryService
         public Task AddAsync(Person entity)
         {
@@ -28,6 +31,12 @@ namespace ListsOfPersons.Services.RepositoryService
         /// </param>
         public async Task DeleteAsync(string id)
         {
+            lastPerson = _persons[_persons.Count-1];
+            selectedPerson = _persons.Find(a => a.Id == id);
+
+            if (lastPerson == selectedPerson)                         //Fake exception that you can`t remove last item
+                throw new Exception("You can`t remove last item");
+
             _persons.Remove(_persons.Find(a => a.Id == id));
 
             await WritePersonsAsync();
