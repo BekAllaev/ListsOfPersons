@@ -8,9 +8,12 @@ using GalaSoft.MvvmLight.Messaging;
 namespace ListsOfPersons.Messages
 {
     public enum CRUD { Create, Read, Update, Delete }
+    /// <summary>
+    /// Instance of this type incasulate information about collection changing
+    /// </summary>
     class PersonsChangedMessage : MessageBase
     {
-        public string ExceptionMessage;
+        public bool IsAvailable;
 
         public CRUD OperationType { set; get; }
     }

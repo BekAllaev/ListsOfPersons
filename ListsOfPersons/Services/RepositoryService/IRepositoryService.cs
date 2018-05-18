@@ -25,7 +25,7 @@ namespace ListsOfPersons.Services.RepositoryService
         #region Editing methods
         Task AddAsync(T entity);
 
-        Task DeleteAsync(string id);
+        Task DeleteAsync(string id,int remainPersons);
 
         Task UpdateAsync(T entity);
         #endregion

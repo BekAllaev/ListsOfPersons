@@ -18,10 +18,10 @@
         <!--#region ControlButtons Bar -->
         <controls:PageHeader x:Name="pageHeader" Background="Green">
             <controls:PageHeader.PrimaryCommands>
-                <AppBarButton Icon="Add"/>
-                <AppBarButton Icon="Edit"/>
-                <AppBarButton Icon="Delete" Command="{Binding DeletePersonCommand}"/>
-                <AppBarButton Icon="Favorite"/>
+                <AppBarButton Icon="Add" Label="Add" Command="{Binding AddPersonCommand}"/>
+                <AppBarButton Icon="Edit" Label="Edit" Command="{Binding EditPersonCommand}"/>
+                <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeletePersonCommand}"/>
+                <AppBarButton Icon="Favorite" Label="Favorite"/>
             </controls:PageHeader.PrimaryCommands>
             <controls:PageHeader.SecondaryCommands>
 

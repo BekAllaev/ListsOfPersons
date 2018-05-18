@@ -55,6 +55,7 @@ namespace ListsOfPersons
             // Registering dependency in container
             SimpleIoc.Default.Register<MasterDetailPageViewModel>();
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
+            SimpleIoc.Default.Register<AddEditPageViewModel>();
 
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
@@ -64,6 +65,8 @@ namespace ListsOfPersons
         {
             if (page is MasterDetailPage)
                 return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
+            else if (page is AddEditPage)
+                return SimpleIoc.Default.GetInstance<AddEditPageViewModel>();
             else
                 return base.ResolveForPage(page, navigationService);
         }

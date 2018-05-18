@@ -24,7 +24,10 @@ namespace ListsOfPersons.ViewModels
         ObservableCollection<Person> _persons;
         IRepositoryService<Person> _personsRepositary;
         DelegateCommand _deletePersonCommand;
+        DelegateCommand _addPersonCommand;
+        DelegateCommand _editPersonCommand;
         Person _selectedPerson;
+        int remainPersons;
         #endregion
 
         #region Constructor
@@ -32,6 +35,8 @@ namespace ListsOfPersons.ViewModels
         {
             _personsRepositary = personsList;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
+            _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
+
         }
         #endregion
 
@@ -49,6 +54,7 @@ namespace ListsOfPersons.ViewModels
             {
                 Set(ref _selectedPerson, value);
                 DeletePersonCommand.RaiseCanExecuteChanged();
+                EditPersonCommand.RaiseCanExecuteChanged();
             }
         }
         #endregion
@@ -77,7 +83,8 @@ namespace ListsOfPersons.ViewModels
         #endregion
 
         #region Commands
-        #region DeletCommand
+
+        #region DeleteCommand
         public DelegateCommand DeletePersonCommand
         {
             get { return _deletePersonCommand ?? new DelegateCommand(DeletePersonExecute, CanDeletePerson); }
@@ -85,6 +92,9 @@ namespace ListsOfPersons.ViewModels
 
         private async void DeletePersonExecute()
         {
+            remainPersons = Persons.Count;
+            ContentDialogResult result = ContentDialogResult.Primary;
+
             ContentDialog OkCancelDialog = new ContentDialog
             {
                 Title = $"Deleting {SelectedPerson.Name} {SelectedPerson.LastName}",
@@ -92,41 +102,74 @@ namespace ListsOfPersons.ViewModels
                 PrimaryButtonText = "OK",
                 SecondaryButtonText = "Cancel"
             };
-            ContentDialogResult result = await OkCancelDialog.ShowAsync();
 
-            try
-            {
-                if (result == ContentDialogResult.Primary)
-                    await _personsRepositary.DeleteAsync(SelectedPerson.Id);
-                else
-                    return;
-            }
-            catch (Exception e)
-            {
-                ContentDialog exceptionDialog = new ContentDialog
-                {
-                    Title = $"Invailid operation",
-                    Content=e.Message,
-                    PrimaryButtonText="OK"
-                };
-                await exceptionDialog.ShowAsync();
-            }
+            if (remainPersons != 1)
+                result = await OkCancelDialog.ShowAsync();
+
+            if (result == ContentDialogResult.Primary)
+                await _personsRepositary.DeleteAsync(SelectedPerson.Id, remainPersons);
+            else
+                return;
         }
 
         private bool CanDeletePerson() => SelectedPerson == null ? false : true;
+        #endregion
+
+        #region EditCommand
+        public DelegateCommand EditPersonCommand
+        {
+            get { return _editPersonCommand ?? new DelegateCommand(EditPersonExecute, CanEditPerson); }
+        }
+
+        private void EditPersonExecute()
+        {
+            NavigationService.Navigate(typeof(Views.AddEditPage),SelectedPerson);
+        }
+
+        private bool CanEditPerson() => SelectedPerson == null ? false : true;
+        #endregion
+
+        #region AddCommand
+        public DelegateCommand AddPersonCommand
+        {
+            get { return _addPersonCommand ?? new DelegateCommand(AddPersonExecute); }
+        }
+
+        private void AddPersonExecute()
+        {
+            NavigationService.Navigate(typeof(Views.AddEditPage),null);
+        }
         #endregion
         #endregion
 
         #region Message handler
         private async void HandlePersonsChangedMessage(PersonsChangedMessage message)
         {
+            if (!message.IsAvailable)
+            {
+                ContentDialog invailidOperationDialog = new ContentDialog
+                {
+                    Title = $"Invailid operation",
+                    Content = $"Not availbale operation",
+                    PrimaryButtonText = "OK"
+                };
+                await invailidOperationDialog.ShowAsync();
+                return;
+            }
+
             switch (message.OperationType)
             {
                 case CRUD.Delete:
                     Persons.Remove(SelectedPerson);
                     break;
                 default:
-                    await new MessageDialog(message.ExceptionMessage).ShowAsync();
+                    ContentDialog notFoundDialog = new ContentDialog
+                    {
+                        Title = $"NOT FOUND",
+                        Content = $"Unknown exception",
+                        PrimaryButtonText = "OK"
+                    };
+                    await notFoundDialog.ShowAsync();
                     break;
             }
         }

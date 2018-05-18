@@ -14,8 +14,7 @@ namespace ListsOfPersons.Services.RepositoryService
     {
         private List<Person> _persons;
 
-        private Person lastPerson;
-        private Person selectedPerson;
+        private PersonsChangedMessage message;
 
         #region Implementation of IRepositoryService
         public Task AddAsync(Person entity)
@@ -29,19 +28,25 @@ namespace ListsOfPersons.Services.RepositoryService
         /// <param name="id">
         /// ID of removing item
         /// </param>
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id, int remainPerson)
         {
-            lastPerson = _persons[_persons.Count-1];
-            selectedPerson = _persons.Find(a => a.Id == id);
+            if (remainPerson==1)
+                message = new PersonsChangedMessage() { OperationType = CRUD.Delete, IsAvailable = false };
+            else
+            {
+                message = new PersonsChangedMessage() { OperationType = CRUD.Delete, IsAvailable = true };
+                _persons.Remove(_persons.Find(a => a.Id == id));
+            }
 
-            if (lastPerson == selectedPerson)                         //Fake exception that you can`t remove last item
-                throw new Exception("You can`t remove last item");
+            try
+            {
+                await WritePersonsAsync();
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
-            _persons.Remove(_persons.Find(a => a.Id == id));
-
-            await WritePersonsAsync();
-
-            var message = new PersonsChangedMessage() { OperationType = CRUD.Delete, ExceptionMessage = null };
             Messenger.Default.Send<PersonsChangedMessage>(message);
         }
 
