@@ -28,13 +28,13 @@
             </controls:PageHeader.SecondaryCommands>
         </controls:PageHeader>
         <!--#endregion-->
-        
+
         <!--#region MasterDetailView templates-->
         <uwpkit:MasterDetailsView x:Name="MDView1"
                                   Grid.Row="1" 
                                   NoSelectionContent="Choose item to view details"
                                   SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"
-                                  ItemsSource="{Binding Persons}">
+                                  ItemsSource="{Binding Persons}" Background="Black" MasterPaneBackground="Brown">
             <!--#region ItemTemplate-->
             <uwpkit:MasterDetailsView.ItemTemplate>
                 <DataTemplate x:DataType="models:Person">
@@ -45,22 +45,26 @@
                                        IsCacheEnabled="True"
                                        PlaceholderStretch="UniformToFill"
                                        CornerRadius="48" 
-                                       Source="{x:Bind PathToImage}"/>
+                                       Source="{x:Bind PathToImage}"
+                                       Foreground="White"/>
                         <TextBlock x:Name="name" FontSize="18" FontWeight="Bold"
                                        RelativePanel.RightOf="thumbnail"
                                        RelativePanel.AlignTopWith="thumbnail"
                                        Margin="16,0,0,0" 
-                                       Text="{x:Bind Name}"/>
+                                       Text="{x:Bind Name}"
+                                       Foreground="White"/>
                         <TextBlock FontSize="18" FontWeight="Bold"
                                        RelativePanel.RightOf="name"
                                        RelativePanel.AlignTopWith="thumbnail"
                                        Margin="10,0,0,0"
-                                       Text="{x:Bind LastName}"/>
+                                       Text="{x:Bind LastName}"
+                                       Foreground="White"/>
                         <TextBlock Margin="16,0,0,0"
                                        RelativePanel.Below="name" RelativePanel.AlignLeftWith="name"
                                        Opacity=".6" 
                                        MaxLines="1" FontSize="16"
-                                       Text="{x:Bind Email}"/>
+                                       Text="{x:Bind Email}"
+                                       Foreground="White"/>
                     </RelativePanel>
                 </DataTemplate>
             </uwpkit:MasterDetailsView.ItemTemplate>
@@ -104,14 +108,14 @@
                     <StackPanel HorizontalAlignment="Center"
                                 VerticalAlignment="Center">
                         <SymbolIcon Symbol="Contact" 
-                                    RenderTransformOrigin=".5,.5" Foreground="Black">
+                                    RenderTransformOrigin=".5,.5" Foreground="Gray">
                             <SymbolIcon.RenderTransform>
                                 <CompositeTransform 
                                   ScaleX="4" 
                                   ScaleY="4"/>
                             </SymbolIcon.RenderTransform>
                         </SymbolIcon>
-                        <TextBlock Text="{Binding}" FontSize="24" Margin="0,22" Foreground="Black"/>
+                        <TextBlock Text="{Binding}" FontSize="24" Margin="0,22" Foreground="LightGray"/>
                     </StackPanel>
                 </DataTemplate>
             </uwpkit:MasterDetailsView.NoSelectionContentTemplate>
