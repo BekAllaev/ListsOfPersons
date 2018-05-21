@@ -18,5 +18,6 @@ namespace ListsOfPersons.Models
         public Uri PathToImage { set; get; }
         public bool IsFavorite { set; get; }
         public string Id { set; get; }
+        public DateTime DateOfBirth { set; get; }
     }
 }

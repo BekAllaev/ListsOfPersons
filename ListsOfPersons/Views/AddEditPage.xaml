@@ -5,10 +5,63 @@
     xmlns:local="using:ListsOfPersons.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:validate="using:Template10.Controls.Validation"
+    xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <x:Double x:Key="FieldWidth">400</x:Double>
+    </Page.Resources>
+    
     <Grid>
-        <TextBlock Text="{Binding Title, Mode=TwoWay}" FontSize="36" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <RelativePanel>
+            <controls:PageHeader x:Name="pageHeader" Text="{Binding Title}" 
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.AlignRightWithPanel="True"
+                                 RelativePanel.AlignTopWithPanel="True"
+                                 Background="Green">
+
+            </controls:PageHeader>
+            <Grid x:Name="full" Margin="20" RelativePanel.Below="pageHeader"
+                  RelativePanel.AlignLeftWithPanel="True"
+                  RelativePanel.AlignRightWithPanel="True"
+                  RelativePanel.AlignBottomWithPanel="True"
+                  DataContext="{Binding TempPerson}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <StackPanel>
+                        <uwpkit:RoundImageEx  CornerRadius="200" Width="300" 
+                                          Height="300" Stretch="UniformToFill"
+                                          HorizontalAlignment="Left" BorderThickness="3" Source="{Binding PathToImage}"
+                                          BorderBrush="Black" Margin="20"/>
+                        <validate:ControlWrapper PropertyName="Name">
+                            <TextBox Text="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="{StaticResource FieldWidth}" Header="Name" PlaceholderText="Name"/>
+                        </validate:ControlWrapper>
+                        <validate:ControlWrapper PropertyName="LastName">
+                            <TextBox Text="{Binding LastName,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="{StaticResource FieldWidth}" Header="LastName" PlaceholderText="LastName"/>
+                        </validate:ControlWrapper>
+                        <validate:ControlWrapper PropertyName="Email">
+                            <TextBox Text="{Binding Email,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="{StaticResource FieldWidth}" Header="Email" PlaceholderText="example@email.com"/>
+                        </validate:ControlWrapper>
+                        <validate:ControlWrapper PropertyName="Notes">
+                            <TextBox Text="{Binding Notes,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Width="{StaticResource FieldWidth}" Header="Notes" PlaceholderText="Notes"/>
+                        </validate:ControlWrapper>
+                    </StackPanel>
+                </ScrollViewer>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Button Content="Save" Margin="20" Width="160" Click="{x:Bind ViewModel.GotoBackSaved}"/>
+                    <Button Content="Cancel" Margin="20" Width="160" Click="{x:Bind ViewModel.GotoBackUnSaved}"/>
+                </StackPanel>
+            </Grid>
+        </RelativePanel>
     </Grid>
 </Page>

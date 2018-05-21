@@ -17,9 +17,16 @@ namespace ListsOfPersons.Services.RepositoryService
         private PersonsChangedMessage message;
 
         #region Implementation of IRepositoryService
-        public Task AddAsync(Person entity)
+        public async Task AddAsync(Person person)
         {
-            throw new NotImplementedException();
+            if (_persons == null) _persons = await ReadPersonsAsync();
+
+            _persons.Add(person);
+
+            await WritePersonsAsync();
+
+            //message = new PersonsChangedMessage() { OperationType = CRUD.Create, IsAvailable = true };
+            //Messenger.Default.Send<PersonsChangedMessage>(message);
         }
 
         /// <summary>
