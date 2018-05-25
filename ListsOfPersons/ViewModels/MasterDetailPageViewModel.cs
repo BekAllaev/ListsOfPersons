@@ -1,4 +1,5 @@
 ﻿using System;
+using ListsOfPersons.ProxyObjects;
 using System.Collections.Specialized;
 using ListsOfPersons.Messages;
 using System.Collections.Generic;
@@ -27,6 +28,7 @@ namespace ListsOfPersons.ViewModels
         DelegateCommand _addPersonCommand;
         DelegateCommand _editPersonCommand;
         Person _selectedPerson;
+        //PersonProxy _detailPerson;
         int remainPersons;
         #endregion
 
@@ -36,7 +38,6 @@ namespace ListsOfPersons.ViewModels
             _personsRepositary = personsList;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
             _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
-
         }
         #endregion
 
@@ -53,9 +54,21 @@ namespace ListsOfPersons.ViewModels
             set
             {
                 Set(ref _selectedPerson, value);
+                _detailViewPerson = new PersonProxy(_selectedPerson);
                 DeletePersonCommand.RaiseCanExecuteChanged();
                 EditPersonCommand.RaiseCanExecuteChanged();
             }
+        }
+
+        /// <summary>
+        /// Персона детали которые выводятся на экран
+        /// </summary>
+        /// Привязать DetailsView к DetailViewPerson 
+        private PersonProxy _detailViewPerson;
+        public PersonProxy DetailViewPerson
+        {
+            set { Set(ref _detailViewPerson, value); }
+            get { return _detailViewPerson; }
         }
         #endregion
 
@@ -123,7 +136,7 @@ namespace ListsOfPersons.ViewModels
 
         private void EditPersonExecute()
         {
-            NavigationService.Navigate(typeof(Views.AddEditPage),SelectedPerson);
+            NavigationService.Navigate(typeof(Views.AddEditPage), SelectedPerson);
         }
 
         private bool CanEditPerson() => SelectedPerson == null ? false : true;
@@ -137,7 +150,7 @@ namespace ListsOfPersons.ViewModels
 
         private void AddPersonExecute()
         {
-            NavigationService.Navigate(typeof(Views.AddEditPage),null);
+            NavigationService.Navigate(typeof(Views.AddEditPage), null);
         }
         #endregion
         #endregion

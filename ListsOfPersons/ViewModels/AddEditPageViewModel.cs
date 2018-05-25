@@ -85,6 +85,8 @@ namespace ListsOfPersons.ViewModels
 
             if (CurrentState == States.Add)
                 await PersonsRepositary.AddAsync(currentPerson);
+            else if (CurrentState == States.Edit)
+                await PersonsRepositary.UpdateAsync(currentPerson);
 
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
         }

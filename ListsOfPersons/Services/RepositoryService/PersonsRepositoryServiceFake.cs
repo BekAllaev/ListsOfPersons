@@ -79,9 +79,14 @@ namespace ListsOfPersons.Services.RepositoryService
             throw new NotImplementedException();
         }
 
-        public Task UpdateAsync(Person entity)
+        public async Task UpdateAsync(Person person)
         {
-            throw new NotImplementedException();
+            var _person = _persons.FirstOrDefault(p => p.Id == person.Id);
+
+            _persons.Remove(_person);
+            _persons.Add(person);
+
+            await WritePersonsAsync();
         }
         #endregion
 

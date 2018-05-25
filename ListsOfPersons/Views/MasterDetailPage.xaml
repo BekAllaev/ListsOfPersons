@@ -7,6 +7,7 @@
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Template10.Controls"
     xmlns:models="using:ListsOfPersons.Models"
+    xmlns:proxyObj="using:ListsOfPersons.ProxyObjects"
     mc:Ignorable="d" NavigationCacheMode="Enabled">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -34,7 +35,7 @@
                                   Grid.Row="1" 
                                   NoSelectionContent="Choose item to view details"
                                   SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"
-                                  ItemsSource="{Binding Persons}" Background="Black" MasterPaneBackground="Brown">
+                                  ItemsSource="{Binding Persons}" MasterPaneBackground="Brown">
             <!--#region ItemTemplate-->
             <uwpkit:MasterDetailsView.ItemTemplate>
                 <DataTemplate x:DataType="models:Person">
@@ -69,29 +70,35 @@
                 </DataTemplate>
             </uwpkit:MasterDetailsView.ItemTemplate>
             <!--#endregion-->
-
+            
             <!--#region DetailsTemplate-->
             <uwpkit:MasterDetailsView.DetailsTemplate>
                 <DataTemplate>
                     <ScrollViewer VerticalScrollMode="Auto">
-                        <StackPanel Margin="24">
+                        <StackPanel Margin="24" DataContext="{Binding DetailViewPerson}">
                             <StackPanel Orientation="Horizontal" Margin="0,10,10,10">
-                                <TextBlock FontSize="32" FontWeight="Bold" Margin="0,0,10,0" />
-                                <TextBlock FontSize="32" FontWeight="Bold"/>
+                                <TextBlock FontSize="32" Text="{Binding Name,Mode=TwoWay}" FontWeight="Bold" Margin="0,0,10,0"/>
+                                <TextBlock FontSize="32" Text="{Binding LastName,Mode=TwoWay}" FontWeight="Bold"/>
                             </StackPanel>
-                            <uwpkit:RoundImageEx Height="360" Width="360"
+                            <uwpkit:RoundImageEx Height="360" Width="360" Source="{Binding PathToImage,Mode=TwoWay}"
                                           Stretch="UniformToFill"     
                                           IsCacheEnabled="True"
                                           CornerRadius="4" 
                                           BorderThickness="1" BorderBrush="DimGray" 
                                           HorizontalContentAlignment="Stretch" 
-                                          VerticalContentAlignment="Stretch" HorizontalAlignment="Left" />
-                            <uwpkit:HeaderedTextBlock 
+                                          VerticalContentAlignment="Stretch" HorizontalAlignment="Left"/>
+                            <uwpkit:HeaderedTextBlock Header="Age"
+                                        Text="{Binding Age}"
+                                        FontSize="20"
+                                        Orientation="Vertical"
+                                        Margin="0,10,0,0"/>
+                            <uwpkit:HeaderedTextBlock Text="{Binding Email}"
                                         Header="Email"
                                         FontSize="20"
                                         Orientation="Vertical"
-                                        Margin="0,10,0,0" />
-                            <uwpkit:HeaderedTextBlock 
+                                        Margin="0,10,0,0"
+                                        Foreground="White"/>
+                            <uwpkit:HeaderedTextBlock Text="{Binding Notes}"
                                         Header="Notes"
                                         FontSize="20" 
                                         Orientation="Vertical"
