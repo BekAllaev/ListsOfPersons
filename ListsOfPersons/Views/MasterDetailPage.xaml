@@ -7,7 +7,7 @@
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Template10.Controls"
     xmlns:models="using:ListsOfPersons.Models"
-    xmlns:proxyObj="using:ListsOfPersons.ProxyObjects"
+    xmlns:viewModel="using:ListsOfPersons.ViewModels"
     mc:Ignorable="d" NavigationCacheMode="Enabled">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -77,10 +77,10 @@
                     <ScrollViewer VerticalScrollMode="Auto">
                         <StackPanel Margin="24" DataContext="{Binding DetailViewPerson}">
                             <StackPanel Orientation="Horizontal" Margin="0,10,10,10">
-                                <TextBlock FontSize="32" Text="{Binding Name,Mode=TwoWay}" FontWeight="Bold" Margin="0,0,10,0"/>
-                                <TextBlock FontSize="32" Text="{Binding LastName,Mode=TwoWay}" FontWeight="Bold"/>
+                                <TextBlock FontSize="32" Text="{Binding Name}" FontWeight="Bold" Margin="0,0,10,0"/>
+                                <TextBlock FontSize="32" Text="{Binding LastName}" FontWeight="Bold"/>
                             </StackPanel>
-                            <uwpkit:RoundImageEx Height="360" Width="360" Source="{Binding PathToImage,Mode=TwoWay}"
+                            <uwpkit:RoundImageEx Height="360" Width="360" Source="{Binding PathToImage}"
                                           Stretch="UniformToFill"     
                                           IsCacheEnabled="True"
                                           CornerRadius="4" 

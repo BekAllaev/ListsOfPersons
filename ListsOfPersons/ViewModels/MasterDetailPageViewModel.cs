@@ -28,7 +28,6 @@ namespace ListsOfPersons.ViewModels
         DelegateCommand _addPersonCommand;
         DelegateCommand _editPersonCommand;
         Person _selectedPerson;
-        //PersonProxy _detailPerson;
         int remainPersons;
         #endregion
 
@@ -54,21 +53,10 @@ namespace ListsOfPersons.ViewModels
             set
             {
                 Set(ref _selectedPerson, value);
-                _detailViewPerson = new PersonProxy(_selectedPerson);
+                SelectedPerson.DetailViewPerson = new PersonProxy(SelectedPerson);
                 DeletePersonCommand.RaiseCanExecuteChanged();
                 EditPersonCommand.RaiseCanExecuteChanged();
             }
-        }
-
-        /// <summary>
-        /// Персона детали которые выводятся на экран
-        /// </summary>
-        /// Привязать DetailsView к DetailViewPerson 
-        private PersonProxy _detailViewPerson;
-        public PersonProxy DetailViewPerson
-        {
-            set { Set(ref _detailViewPerson, value); }
-            get { return _detailViewPerson; }
         }
         #endregion
 
@@ -188,5 +176,4 @@ namespace ListsOfPersons.ViewModels
         }
         #endregion
     }
-
 }

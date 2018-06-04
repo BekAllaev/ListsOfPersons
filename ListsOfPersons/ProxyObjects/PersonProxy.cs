@@ -13,7 +13,10 @@ namespace ListsOfPersons.ProxyObjects
         #region Constructor
         public PersonProxy(Person person)
         {
+            if (person == null)
+                return;
             Name = person.Name;
+            Id = person.Id;
             LastName = person.LastName;
             Email = person.Email;
             Notes = person.Notes;
@@ -29,6 +32,13 @@ namespace ListsOfPersons.ProxyObjects
             set { Write<string>(value); }
             get { return Read<string>(); }
         }
+
+        public string Id
+        {
+            set { Write<string>(value); }
+            get { return Read<string>(); }
+        }
+
 
         public string LastName
         {
@@ -83,7 +93,7 @@ namespace ListsOfPersons.ProxyObjects
 
         public int Age
         {
-            get { return DateOfBirth.Year - DateTime.Now.Year; }
+            get { return DateTime.Now.Year - DateOfBirth.Year ; }
         }
 
         #endregion
