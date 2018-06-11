@@ -1,6 +1,7 @@
 ﻿using System;
 using ListsOfPersons.ProxyObjects;
 using System.Collections.Generic;
+using ListsOfPersons.Services;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace ListsOfPersons.ViewModels
         IRepositoryService<Person> PersonsRepositary;
         enum States { Edit,Add};
         States CurrentState;
+        DateTime _dateTime;
         #endregion
 
         #region Constructor
@@ -41,20 +43,42 @@ namespace ListsOfPersons.ViewModels
             set { Set(ref proxyPerson, value); }
             get { return proxyPerson; }
         }
+
+        public DateTime DateOfbirth
+        {
+            set { Set(ref _dateTime, value); }
+            get { return _dateTime; }
+        }
         #endregion
 
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
+            currentPerson = parameter == null ? new Person() { DateOfBirth=DateOfbirth, Id = Guid.NewGuid().ToString() } : parameter as Person;
 
             var temp = new PersonProxy(currentPerson)
             {
                 Name = currentPerson.Name,
                 LastName = currentPerson.LastName,
-                Email = currentPerson.Email
+                Email = currentPerson.Email,
+                DateOfBirth = currentPerson.DateOfBirth,
+                Validator = i =>
+                {
+                    var u = i as PersonProxy;
+                    if (string.IsNullOrEmpty(u.Name))
+                        u.Properties[nameof(u.Name)].Errors.Add("FirstName is required");
+                    else if (u.Name.Length < 3)
+                        u.Properties[nameof(u.Name)].Errors.Add("FirstName must be more then 3 symbols");
+                    if (string.IsNullOrEmpty(u.LastName))
+                        u.Properties[nameof(u.LastName)].Errors.Add("FirstName is required");
+                    if (string.IsNullOrEmpty(u.Email))
+                        u.Properties[nameof(u.Email)].Errors.Add("Email is required");
+                    else if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(u.Email))
+                        u.Properties[nameof(u.Email)].Errors.Add("Must consist . and @");
+                }
             };
             TempPerson = temp;
+            TempPerson.Validate();
             
             if (parameter == null)
             {
@@ -81,6 +105,7 @@ namespace ListsOfPersons.ViewModels
             currentPerson.LastName = TempPerson.LastName;
             currentPerson.Notes = TempPerson.Notes;
             currentPerson.Email = TempPerson.Email;
+            currentPerson.DateOfBirth = TempPerson.DateOfBirth; 
             currentPerson.PathToImage = TempPerson.PathToImage;
 
             if (CurrentState == States.Add)

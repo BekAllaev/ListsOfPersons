@@ -23,6 +23,6 @@ namespace ListsOfPersons.Models
         /// <summary>
         /// Instance of the current person over which you can commit an action(show details,edit his details etc.)
         /// </summary>
-        public PersonProxy DetailViewPerson { set; get; }
+        public PersonProxy ProxyPerson { set; get; }
     }
 }

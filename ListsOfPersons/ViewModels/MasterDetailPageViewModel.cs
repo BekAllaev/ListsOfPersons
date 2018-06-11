@@ -37,6 +37,7 @@ namespace ListsOfPersons.ViewModels
             _personsRepositary = personsList;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
             _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
+            _addPersonCommand = new DelegateCommand(AddPersonExecute);
         }
         #endregion
 
@@ -53,7 +54,8 @@ namespace ListsOfPersons.ViewModels
             set
             {
                 Set(ref _selectedPerson, value);
-                SelectedPerson.DetailViewPerson = new PersonProxy(SelectedPerson);
+                if (SelectedPerson != null)
+                    SelectedPerson.ProxyPerson = new PersonProxy(SelectedPerson);
                 DeletePersonCommand.RaiseCanExecuteChanged();
                 EditPersonCommand.RaiseCanExecuteChanged();
             }
