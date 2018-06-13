@@ -9,6 +9,7 @@ using ListsOfPersons.Models;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using ListsOfPersons.Services.RepositoryService;
+using System.Runtime.CompilerServices;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -19,9 +20,8 @@ namespace ListsOfPersons.ViewModels
         Person currentPerson;
         PersonProxy proxyPerson;
         IRepositoryService<Person> PersonsRepositary;
-        enum States { Edit,Add};
+        enum States { Edit, Add };
         States CurrentState;
-        DateTime _dateTime;
         #endregion
 
         #region Constructor
@@ -32,7 +32,7 @@ namespace ListsOfPersons.ViewModels
         #endregion
 
         #region Bindable properties
-        public string Title  
+        public string Title
         {
             set { Set(ref _title, value); }
             get { return _title; }
@@ -44,17 +44,90 @@ namespace ListsOfPersons.ViewModels
             get { return proxyPerson; }
         }
 
-        public DateTime DateOfbirth
+        private int _day;
+        public int Day
         {
-            set { Set(ref _dateTime, value); }
-            get { return _dateTime; }
+            set
+            {
+                _day = value;
+                if (_year == 0 | _month == 0)
+                    TempPerson.DateOfBirth = new DateTime(1, 1, _day);
+                else
+                    TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
+            }
+            get { return TempPerson.DateOfBirth.Day; }
         }
+
+        private int _month;
+        public int Month
+        {
+            set
+            {
+                _month = value;
+                if (_year == 0 | _day == 0)
+                    TempPerson.DateOfBirth = new DateTime(1, _month, 1);
+                else
+                    TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
+            }
+            get { return TempPerson.DateOfBirth.Month; }
+        }
+
+        private int _year;
+        public int Year
+        {
+            set
+            {
+                _year = value;
+                if (_day == 0 | _month == 0)
+                    TempPerson.DateOfBirth = new DateTime(_year, 1, 1);
+                else
+                    TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
+            }
+            get { return TempPerson.DateOfBirth.Year; }
+        }
+
+        #region Calculated properties
+        public Int32[] DaysAmount
+        {
+            get { return Counter(31); }
+        }
+
+        public Int32[] MonthAmount
+        {
+            get { return Counter(12); }
+        }
+
+        public Int32[] YearsAmount
+        {
+            get { return Counter(1971, 2001); }
+        }
+        #endregion
+
+        #region Overloads of Counter func
+        private Int32[] Counter(int a)
+        {
+            Int32[] ProxyList = new Int32[a];
+            for (int i = 0; i != a; i++)
+                ProxyList[i] = i + 1;
+            return ProxyList;
+        }
+
+        private Int32[] Counter(int firstYear, int lastYear)
+        {
+            int capacity = lastYear - firstYear + 1; //When you minus first from last year there is no place for lastyear
+            Int32[] ProxyList = new Int32[capacity]; //it cause we add 1.
+            ProxyList[0] = firstYear;
+            for (int i = 1; i != capacity; i++)
+                ProxyList[i] = firstYear + i;
+            return ProxyList;
+        }
+        #endregion
         #endregion
 
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            currentPerson = parameter == null ? new Person() { DateOfBirth=DateOfbirth, Id = Guid.NewGuid().ToString() } : parameter as Person;
+            currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
 
             var temp = new PersonProxy(currentPerson)
             {
@@ -79,7 +152,7 @@ namespace ListsOfPersons.ViewModels
             };
             TempPerson = temp;
             TempPerson.Validate();
-            
+
             if (parameter == null)
             {
                 CurrentState = States.Add;
@@ -105,7 +178,7 @@ namespace ListsOfPersons.ViewModels
             currentPerson.LastName = TempPerson.LastName;
             currentPerson.Notes = TempPerson.Notes;
             currentPerson.Email = TempPerson.Email;
-            currentPerson.DateOfBirth = TempPerson.DateOfBirth; 
+            currentPerson.DateOfBirth = TempPerson.DateOfBirth;
             currentPerson.PathToImage = TempPerson.PathToImage;
 
             if (CurrentState == States.Add)

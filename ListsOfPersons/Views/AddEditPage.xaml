@@ -14,7 +14,7 @@
     <Page.Resources>
         <x:Double x:Key="FieldWidth">400</x:Double>
     </Page.Resources>
-    
+
     <Grid>
         <RelativePanel>
             <controls:PageHeader x:Name="pageHeader" Text="{Binding Title}" 
@@ -52,92 +52,11 @@
                                  Width="{StaticResource FieldWidth}" Header="Email" PlaceholderText="example@email.com"/>
                         </validate:ControlWrapper>
                         <TextBlock Text="Date of Birth" Margin="0,10,0,10"/>
-                        <validate:ControlWrapper PropertyName="Date of birth">
-                            <StackPanel Orientation="Horizontal">
-                                <ComboBox SelectedIndex="{x:Bind ViewModel.DateOfbirth.Day}">
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>2</x:Int32>
-                                    <x:Int32>3</x:Int32>
-                                    <x:Int32>4</x:Int32>
-                                    <x:Int32>5</x:Int32>
-                                    <x:Int32>6</x:Int32>
-                                    <x:Int32>7</x:Int32>
-                                    <x:Int32>8</x:Int32>
-                                    <x:Int32>9</x:Int32>
-                                    <x:Int32>10</x:Int32>
-                                    <x:Int32>11</x:Int32>
-                                    <x:Int32>12</x:Int32>
-                                    <x:Int32>13</x:Int32>
-                                    <x:Int32>14</x:Int32>
-                                    <x:Int32>15</x:Int32>
-                                    <x:Int32>16</x:Int32>
-                                    <x:Int32>17</x:Int32>
-                                    <x:Int32>18</x:Int32>
-                                    <x:Int32>19</x:Int32>
-                                    <x:Int32>20</x:Int32>
-                                    <x:Int32>21</x:Int32>
-                                    <x:Int32>22</x:Int32>
-                                    <x:Int32>23</x:Int32>
-                                    <x:Int32>24</x:Int32>
-                                    <x:Int32>25</x:Int32>
-                                    <x:Int32>26</x:Int32>
-                                    <x:Int32>27</x:Int32>
-                                    <x:Int32>28</x:Int32>
-                                    <x:Int32>29</x:Int32>
-                                    <x:Int32>30</x:Int32>
-                                    <x:Int32>31</x:Int32>
-                                </ComboBox>
-                                <ComboBox SelectedIndex="{x:Bind ViewModel.DateOfbirth.Month}">
-                                    <x:Int32>1</x:Int32>
-                                    <x:Int32>2</x:Int32>
-                                    <x:Int32>3</x:Int32>
-                                    <x:Int32>4</x:Int32>
-                                    <x:Int32>5</x:Int32>
-                                    <x:Int32>6</x:Int32>
-                                    <x:Int32>7</x:Int32>
-                                    <x:Int32>8</x:Int32>
-                                    <x:Int32>9</x:Int32>
-                                    <x:Int32>10</x:Int32>
-                                    <x:Int32>11</x:Int32>
-                                    <x:Int32>12</x:Int32>
-                                </ComboBox>
-                                <ComboBox SelectedIndex="{x:Bind ViewModel.DateOfbirth.Year}">
-                                    <x:Int32>1987</x:Int32>
-                                    <x:Int32>1988</x:Int32>
-                                    <x:Int32>3</x:Int32>
-                                    <x:Int32>4</x:Int32>
-                                    <x:Int32>5</x:Int32>
-                                    <x:Int32>6</x:Int32>
-                                    <x:Int32>7</x:Int32>
-                                    <x:Int32>8</x:Int32>
-                                    <x:Int32>9</x:Int32>
-                                    <x:Int32>10</x:Int32>
-                                    <x:Int32>11</x:Int32>
-                                    <x:Int32>12</x:Int32>
-                                    <x:Int32>13</x:Int32>
-                                    <x:Int32>14</x:Int32>
-                                    <x:Int32>15</x:Int32>
-                                    <x:Int32>16</x:Int32>
-                                    <x:Int32>17</x:Int32>
-                                    <x:Int32>18</x:Int32>
-                                    <x:Int32>19</x:Int32>
-                                    <x:Int32>20</x:Int32>
-                                    <x:Int32>21</x:Int32>
-                                    <x:Int32>22</x:Int32>
-                                    <x:Int32>23</x:Int32>
-                                    <x:Int32>24</x:Int32>
-                                    <x:Int32>25</x:Int32>
-                                    <x:Int32>26</x:Int32>
-                                    <x:Int32>27</x:Int32>
-                                    <x:Int32>28</x:Int32>
-                                    <x:Int32>29</x:Int32>
-                                    <x:Int32>30</x:Int32>
-                                    <x:Int32>31</x:Int32>
-                                </ComboBox>
-                            </StackPanel>
-                                <!--<TextBox Header="Date of Birth" Text="{Binding DateOfBirth}" 
-                                     Width="{StaticResource FieldWidth}" PlaceholderText="(dd).(mm).(yy)-fill it like this only"/>-->
-                        </validate:ControlWrapper>
+                        <StackPanel Orientation="Horizontal" DataContext="{x:Bind ViewModel}">
+                            <ComboBox SelectedItem="{Binding Day,Mode=TwoWay}" ItemsSource="{Binding DaysAmount}"/>
+                            <ComboBox SelectedItem="{Binding Month,Mode=TwoWay}" ItemsSource="{Binding MonthAmount}"/>
+                            <ComboBox SelectedItem="{Binding Year,Mode=TwoWay}" ItemsSource="{Binding YearsAmount}"/>
+                        </StackPanel>
                         <validate:ControlWrapper PropertyName="Notes">
                             <TextBox Text="{Binding Notes,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                  Width="{StaticResource FieldWidth}" Header="Notes" PlaceholderText="Notes"/>

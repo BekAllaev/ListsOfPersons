@@ -85,7 +85,6 @@ namespace ListsOfPersons.Services.RepositoryService
 
             _persons.Remove(_person);
             _persons.Add(person);
-            _persons.Sort();
 
             await WritePersonsAsync();
         }
@@ -96,7 +95,7 @@ namespace ListsOfPersons.Services.RepositoryService
         {
             return await Task.Run(() => _persons = new List<Person>
             {
-                new Person{Id=Guid.NewGuid().ToString(), Name="Веста",LastName="Буркот",Email="vesta.burkot@mail.com", IsFavorite=true, DateOfBirth=new DateTime(1998,7,1),
+                new Person{Id=Guid.NewGuid().ToString(), Name="Веста",LastName="Буркот",Email="vesta.burkot@mail.com", IsFavorite=true, DateOfBirth=new DateTime(1988,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
                     PathToImage = new Uri("http://100portraits.ru/wp-content/uploads/2017/08/Vesta_100Portraits-04.jpg")},
                 new Person{Id=Guid.NewGuid().ToString(), Name="Андрей",LastName="Альтов",Email="andrey.altov@mail.com", IsFavorite=false,DateOfBirth=new DateTime(1950,7,1),
