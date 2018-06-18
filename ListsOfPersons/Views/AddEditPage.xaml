@@ -52,10 +52,10 @@
                                  Width="{StaticResource FieldWidth}" Header="Email" PlaceholderText="example@email.com"/>
                         </validate:ControlWrapper>
                         <TextBlock Text="Date of Birth (dd).(mm).(yy)" Margin="0,10,0,10"/>
-                        <StackPanel Orientation="Horizontal" DataContext="{x:Bind ViewModel}">
-                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding Day,Mode=TwoWay}" ItemsSource="{Binding DaysAmount}"/>
-                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding Month,Mode=TwoWay}" ItemsSource="{Binding MonthAmount}"/>
-                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding Year,Mode=TwoWay}" ItemsSource="{Binding YearsAmount}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding DateOfBirth.Day,Mode=OneWay}" ItemsSource="{x:Bind ViewModel.DaysAmount}"/>
+                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding DateOfBirth.Month,Mode=TwoWay}" ItemsSource="{x:Bind ViewModel.MonthAmount}"/>
+                            <ComboBox Margin="2,0,2,0" SelectedItem="{Binding DateOfBirth.Year,Mode=TwoWay}" ItemsSource="{x:Bind ViewModel.YearsAmount}"/>
                         </StackPanel>
                         <validate:ControlWrapper PropertyName="Notes">
                             <TextBox Text="{Binding Notes,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
