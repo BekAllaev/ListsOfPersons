@@ -44,43 +44,43 @@ namespace ListsOfPersons.ViewModels
             get { return proxyPerson; }
         }
 
-        private int _day;
+        private int _day=1;
         public int Day
         {
             set
             {
                 _day = value;
-                if (_year == 0 | _month == 0)
-                    TempPerson.DateOfBirth = new DateTime(1, 1, _day);
-                else
+                //if (_year == 0 | _month == 0)
+                //    TempPerson.DateOfBirth = new DateTime(1, 1, _day);
+                //else
                     TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
             }
             get { return TempPerson.DateOfBirth.Day; }
         }
 
-        private int _month;
+        private int _month=1;
         public int Month
         {
             set
             {
                 _month = value;
-                if (_year == 0 | _day == 0)
-                    TempPerson.DateOfBirth = new DateTime(1, _month, 1);
-                else
+                //if (_year == 0 | _day == 0)
+                //    TempPerson.DateOfBirth = new DateTime(1, _month, 1);
+                //else
                     TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
             }
             get { return TempPerson.DateOfBirth.Month; }
         }
 
-        private int _year;
+        private int _year=1;
         public int Year
         {
             set
             {
                 _year = value;
-                if (_day == 0 | _month == 0)
-                    TempPerson.DateOfBirth = new DateTime(_year, 1, 1);
-                else
+                //if (_day == 0 | _month == 0)
+                //    TempPerson.DateOfBirth = new DateTime(_year, 1, 1);
+                //else
                     TempPerson.DateOfBirth = new DateTime(_year, _month, _day);
             }
             get { return TempPerson.DateOfBirth.Year; }
