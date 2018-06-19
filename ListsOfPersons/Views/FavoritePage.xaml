@@ -5,9 +5,38 @@
     xmlns:local="using:ListsOfPersons.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Template10.Controls"
+    xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:model="using:ListsOfPersons.Models"
     mc:Ignorable="d">
 
-    <Grid Background="White">
-        <TextBlock Text="FavoriteListPage" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
+    <Grid Background="Black">
+        <RelativePanel>
+            <controls:PageHeader x:Name="Header" RelativePanel.AlignTopWithPanel="True"
+                                 RelativePanel.AlignLeftWithPanel="True"
+                                 RelativePanel.AlignRightWithPanel="True"
+                                 Text="Favorites" Background="Green"/>
+            <uwpkit:AdaptiveGridView RelativePanel.Below="Header" 
+                                     Margin="10"
+                                     ItemsSource="{Binding Persons}">
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Person">
+                        <StackPanel>
+                            <TextBlock>
+                        <Run Text="{Binding Name}"/>
+                        <Run Text="{Binding LastName}"/>
+                            </TextBlock>
+                            <uwpkit:RoundImageEx Source="{Binding PathToImage}"
+                                    Height="260"
+                                    Width="200"
+                                    BorderBrush="Orange"
+                                    BorderThickness="2"/>
+                            <uwpkit:HeaderedTextBlock Header="Email"
+                                                  Text="{Binding Email}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </uwpkit:AdaptiveGridView>
+        </RelativePanel>
     </Grid>
 </Page>

@@ -7,7 +7,6 @@
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:Template10.Controls"
     xmlns:models="using:ListsOfPersons.Models"
-    xmlns:viewModel="using:ListsOfPersons.ViewModels"
     mc:Ignorable="d" NavigationCacheMode="Enabled">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

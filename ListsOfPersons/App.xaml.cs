@@ -56,6 +56,7 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<MasterDetailPageViewModel>();
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
             SimpleIoc.Default.Register<AddEditPageViewModel>();
+            SimpleIoc.Default.Register<FavoritePageViewModel>();
 
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
@@ -65,6 +66,8 @@ namespace ListsOfPersons
         {
             if (page is MasterDetailPage)
                 return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
+            else if (page is FavoritePage)
+                return SimpleIoc.Default.GetInstance<FavoritePageViewModel>();
             else if (page is AddEditPage)
                 return SimpleIoc.Default.GetInstance<AddEditPageViewModel>();
             else

@@ -9,10 +9,9 @@
       xmlns:local="using:ListsOfPersons.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:ListsOfPersons.Views"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       mc:Ignorable="d">
 
-    <Controls:HamburgerMenu x:Name="MyHamburgerMenu">
+    <Controls:HamburgerMenu x:Name="MyHamburgerMenu" HamburgerBackground="Green">
 
         <Controls:HamburgerMenu.PrimaryButtons>
             <!--  mainpage button  -->

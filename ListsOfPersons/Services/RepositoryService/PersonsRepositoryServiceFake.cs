@@ -69,9 +69,13 @@ namespace ListsOfPersons.Services.RepositoryService
             return _persons = _persons ?? await ReadPersonsAsync();
         }
 
-        public Task<List<Person>> GetAllFavoriteAsync()
+        public async Task<List<Person>> GetAllFavoriteAsync()
         {
-            throw new NotImplementedException();
+            return await Task.Run(() =>
+                 (from person in _persons
+                 where person.IsFavorite.Equals(true)
+                 select person).ToList<Person>()
+            );
         }
 
         public Task<Person> GetByIdAsync(string id)
