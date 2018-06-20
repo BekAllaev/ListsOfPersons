@@ -23,7 +23,9 @@
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.AlignRightWithPanel="True"
                                      CanDrag="True"
-                                     CanDragItems="True">
+                                     CanDragItems="True"
+                                     SelectedItem="{x:Bind ViewModel.SelectedPeson,Mode=TwoWay}"
+                                     Tapped="{x:Bind ViewModel.ShowDialog}">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="model:Person">
                         <StackPanel>

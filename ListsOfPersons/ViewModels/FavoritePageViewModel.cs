@@ -5,22 +5,27 @@ using System.Linq;
 using System.Text;
 using ListsOfPersons.Models;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using ListsOfPersons.Services.RepositoryService;
 using Windows.UI.Xaml.Navigation;
+using ListsOfPersons.Services.DialogServices;
 
 namespace ListsOfPersons.ViewModels
 {
     public class FavoritePageViewModel:ViewModelBase
     {
         #region Fields
-        private List<Person> _persons;
-        private IRepositoryService<Person> _repositoryService;
+        List<Person> _persons;
+        IRepositoryService<Person> _repositoryService;
+        IDialogService _dialog;
+        Person _selectedPerson;
         #endregion
 
         #region Constructor
-        public FavoritePageViewModel(IRepositoryService<Person> repositoryService)
+        public FavoritePageViewModel(IRepositoryService<Person> repositoryService,IDialogService dialog)
         {
             _repositoryService = repositoryService;
+            _dialog = dialog;
         }
         #endregion
 
@@ -30,12 +35,28 @@ namespace ListsOfPersons.ViewModels
             set { Set(ref _persons, value); }
             get { return _persons; }
         }
+
+        public Person SelectedPeson
+        {
+            set { Set(ref _selectedPerson, value); }
+            get { return _selectedPerson; }
+        }
         #endregion
 
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             Persons = await _repositoryService.GetAllFavoriteAsync();
+        }
+        #endregion
+
+        #region EventHandler
+        public async void ShowDialog()
+        {
+            ContentDialogResult result = await _dialog.ShowAsync(SelectedPeson);
+
+            if (SelectedPeson.IsFavorite == false)
+                Persons.Remove(SelectedPeson);
         }
         #endregion
     }

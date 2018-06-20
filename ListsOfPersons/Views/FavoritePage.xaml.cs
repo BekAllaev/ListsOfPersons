@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using ListsOfPersons.ViewModels;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -25,6 +26,12 @@ namespace ListsOfPersons.Views
         public FavoritePage()
         {
             this.InitializeComponent();
+        }
+
+        private FavoritePageViewModel _viewModel;
+        public FavoritePageViewModel ViewModel
+        {
+            get { return _viewModel ?? (_viewModel = (FavoritePageViewModel)DataContext); }
         }
     }
 }

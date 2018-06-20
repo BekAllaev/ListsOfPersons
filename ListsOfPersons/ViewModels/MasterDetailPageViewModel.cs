@@ -14,8 +14,10 @@ using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Template10.Services.NavigationService;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -65,7 +67,7 @@ namespace ListsOfPersons.ViewModels
                 MakeFavoriteCommand.RaiseCanExecuteChanged();
                 if (SelectedPerson != null && SelectedPerson.IsFavorite == true)
                     FavoriteSymbol = Symbol.Favorite;
-                else
+                else if (SelectedPerson != null && SelectedPerson.IsFavorite == false)
                     FavoriteSymbol = Symbol.UnFavorite;
             }
         }
@@ -96,6 +98,12 @@ namespace ListsOfPersons.ViewModels
 
             Messenger.Default.Register<PersonsChangedMessage>(this, (message) => HandlePersonsChangedMessage(message));
 
+            await Task.CompletedTask;
+        }
+
+        public async override Task OnNavigatingFromAsync(NavigatingEventArgs args)
+        {
+            FavoriteSymbol = Symbol.Favorite;
             await Task.CompletedTask;
         }
         #endregion
