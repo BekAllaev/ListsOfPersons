@@ -16,9 +16,14 @@
                                  RelativePanel.AlignLeftWithPanel="True"
                                  RelativePanel.AlignRightWithPanel="True"
                                  Text="Favorites" Background="Green"/>
-            <uwpkit:AdaptiveGridView RelativePanel.Below="Header" 
+            <uwpkit:AdaptiveGridView RelativePanel.Below="Header"
+                                     DesiredWidth="300"
                                      Margin="10"
-                                     ItemsSource="{Binding Persons}">
+                                     ItemsSource="{Binding Persons}" 
+                                     RelativePanel.AlignLeftWithPanel="True"
+                                     RelativePanel.AlignRightWithPanel="True"
+                                     CanDrag="True"
+                                     CanDragItems="True">
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="model:Person">
                         <StackPanel>

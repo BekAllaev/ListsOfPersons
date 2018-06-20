@@ -27,7 +27,9 @@ namespace ListsOfPersons.ViewModels
         DelegateCommand _deletePersonCommand;
         DelegateCommand _addPersonCommand;
         DelegateCommand _editPersonCommand;
+        DelegateCommand _makeFavoriteCommand;
         Person _selectedPerson;
+        Symbol _favoriteSymbol;
         int remainPersons;
         #endregion
 
@@ -35,8 +37,10 @@ namespace ListsOfPersons.ViewModels
         public MasterDetailPageViewModel(IRepositoryService<Person> personsList)
         {
             _personsRepositary = personsList;
+            _favoriteSymbol = Symbol.Favorite;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
             _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
+            _makeFavoriteCommand = new DelegateCommand(MakeFavoriteExecute, CanMakeFavorite);
             _addPersonCommand = new DelegateCommand(AddPersonExecute);
         }
         #endregion
@@ -58,7 +62,18 @@ namespace ListsOfPersons.ViewModels
                     SelectedPerson.ProxyPerson = new PersonProxy(SelectedPerson);
                 DeletePersonCommand.RaiseCanExecuteChanged();
                 EditPersonCommand.RaiseCanExecuteChanged();
+                MakeFavoriteCommand.RaiseCanExecuteChanged();
+                if (SelectedPerson != null && SelectedPerson.IsFavorite == true)
+                    FavoriteSymbol = Symbol.Favorite;
+                else
+                    FavoriteSymbol = Symbol.UnFavorite;
             }
+        }
+
+        public Symbol FavoriteSymbol
+        {
+            set { Set(ref _favoriteSymbol, value); }
+            get { return _favoriteSymbol; }
         }
         #endregion
 
@@ -143,6 +158,22 @@ namespace ListsOfPersons.ViewModels
             NavigationService.Navigate(typeof(Views.AddEditPage), null);
         }
         #endregion
+
+        #region MakeFavoriteCommand
+        public DelegateCommand MakeFavoriteCommand
+        {
+            get { return _makeFavoriteCommand ?? new DelegateCommand(MakeFavoriteExecute, CanMakeFavorite); }
+        }
+
+        private bool CanMakeFavorite() => SelectedPerson == null ? false : true;
+
+        private void MakeFavoriteExecute()
+        {
+            if (SelectedPerson != null)
+                FavoriteSymbol = (SelectedPerson.IsFavorite == true) ? Symbol.UnFavorite : Symbol.Favorite;
+            _personsRepositary.UpdateAsync(SelectedPerson);
+        }
+        #endregion
         #endregion
 
         #region Message handler
@@ -164,6 +195,9 @@ namespace ListsOfPersons.ViewModels
             {
                 case CRUD.Delete:
                     Persons.Remove(SelectedPerson);
+                    break;
+                case CRUD.Update:
+                    SelectedPerson.IsFavorite = (FavoriteSymbol == Symbol.Favorite) ? true : false;
                     break;
                 default:
                     ContentDialog notFoundDialog = new ContentDialog

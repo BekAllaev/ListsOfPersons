@@ -21,7 +21,11 @@
                 <AppBarButton Icon="Add" Label="Add" Command="{Binding AddPersonCommand}"/>
                 <AppBarButton Icon="Edit" Label="Edit" Command="{Binding EditPersonCommand}"/>
                 <AppBarButton Icon="Delete" Label="Delete" Command="{Binding DeletePersonCommand}"/>
-                <AppBarButton Icon="Favorite" Label="Favorite"/>
+                <AppBarButton Label="Favorite" Command="{Binding MakeFavoriteCommand}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="{Binding FavoriteSymbol}"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <!--#endregion-->
@@ -66,7 +70,7 @@
                 </DataTemplate>
             </uwpkit:MasterDetailsView.ItemTemplate>
             <!--#endregion-->
-            
+
             <!--#region DetailsTemplate-->
             <uwpkit:MasterDetailsView.DetailsTemplate>
                 <DataTemplate>

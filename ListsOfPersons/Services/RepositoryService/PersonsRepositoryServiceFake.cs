@@ -91,6 +91,9 @@ namespace ListsOfPersons.Services.RepositoryService
             _persons.Add(person);
 
             await WritePersonsAsync();
+
+            var message = new PersonsChangedMessage() { OperationType = CRUD.Update, IsAvailable = true };
+            Messenger.Default.Send<PersonsChangedMessage>(message);
         }
         #endregion
 
