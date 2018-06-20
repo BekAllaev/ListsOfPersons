@@ -8,7 +8,7 @@ using ListsOfPersons.Models;
 
 namespace ListsOfPersons.ViewModels
 {
-    public class PersonContentDialogViewModel:ViewModelBase
+    public class PersonContentDialogViewModel : ViewModelBase
     {
         #region Field
         Person _selectedPerson;

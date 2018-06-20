@@ -9,20 +9,21 @@ using Windows.UI.Xaml.Controls;
 using ListsOfPersons.Services.RepositoryService;
 using Windows.UI.Xaml.Navigation;
 using ListsOfPersons.Services.DialogServices;
+using System.Collections.ObjectModel;
 
 namespace ListsOfPersons.ViewModels
 {
-    public class FavoritePageViewModel:ViewModelBase
+    public class FavoritePageViewModel : ViewModelBase
     {
         #region Fields
-        List<Person> _persons;
+        ObservableCollection<Person> _persons;
         IRepositoryService<Person> _repositoryService;
         IDialogService _dialog;
         Person _selectedPerson;
         #endregion
 
         #region Constructor
-        public FavoritePageViewModel(IRepositoryService<Person> repositoryService,IDialogService dialog)
+        public FavoritePageViewModel(IRepositoryService<Person> repositoryService, IDialogService dialog)
         {
             _repositoryService = repositoryService;
             _dialog = dialog;
@@ -30,7 +31,7 @@ namespace ListsOfPersons.ViewModels
         #endregion
 
         #region Bindable properties
-        public List<Person> Persons
+        public ObservableCollection<Person> Persons
         {
             set { Set(ref _persons, value); }
             get { return _persons; }
@@ -46,7 +47,8 @@ namespace ListsOfPersons.ViewModels
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            Persons = await _repositoryService.GetAllFavoriteAsync();
+            var persons = await _repositoryService.GetAllFavoriteAsync();
+            Persons = new ObservableCollection<Person>(persons);
         }
         #endregion
 

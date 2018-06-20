@@ -19,7 +19,7 @@
             <uwpkit:AdaptiveGridView RelativePanel.Below="Header"
                                      DesiredWidth="300"
                                      Margin="10"
-                                     ItemsSource="{Binding Persons}" 
+                                     ItemsSource="{Binding Persons,Mode=TwoWay}" 
                                      RelativePanel.AlignLeftWithPanel="True"
                                      RelativePanel.AlignRightWithPanel="True"
                                      CanDrag="True"
