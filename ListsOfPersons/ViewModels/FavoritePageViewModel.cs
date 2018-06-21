@@ -57,11 +57,12 @@ namespace ListsOfPersons.ViewModels
         {
             if (SelectedPeson == null)
                 return;
-            ContentDialogResult result = await _dialog.ShowAsync(SelectedPeson);
-
-            if (SelectedPeson != null)
+            if (SelectedPeson.IsFavorite == true)
+            {
+                ContentDialogResult result = await _dialog.ShowAsync(SelectedPeson);
                 if (SelectedPeson.IsFavorite == false)
                     Persons.Remove(SelectedPeson);
+            }
         }
         #endregion
     }
