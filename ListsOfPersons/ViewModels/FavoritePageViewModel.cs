@@ -55,6 +55,8 @@ namespace ListsOfPersons.ViewModels
         #region EventHandler
         public async void ShowDialog()
         {
+            if (SelectedPeson == null)
+                return;
             ContentDialogResult result = await _dialog.ShowAsync(SelectedPeson);
 
             if (SelectedPeson.IsFavorite == false)
