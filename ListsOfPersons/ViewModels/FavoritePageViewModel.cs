@@ -59,8 +59,9 @@ namespace ListsOfPersons.ViewModels
                 return;
             ContentDialogResult result = await _dialog.ShowAsync(SelectedPeson);
 
-            if (SelectedPeson.IsFavorite == false)
-                Persons.Remove(SelectedPeson);
+            if (SelectedPeson != null)
+                if (SelectedPeson.IsFavorite == false)
+                    Persons.Remove(SelectedPeson);
         }
         #endregion
     }
