@@ -10,7 +10,7 @@
     xmlns:model="using:ListsOfPersons.Models"
     mc:Ignorable="d">
 
-    <Grid Background="Black">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <RelativePanel>
             <controls:PageHeader x:Name="Header" RelativePanel.AlignTopWithPanel="True"
                                  RelativePanel.AlignLeftWithPanel="True"
@@ -29,16 +29,17 @@
                 <GridView.ItemTemplate>
                     <DataTemplate x:DataType="model:Person">
                         <StackPanel>
-                            <TextBlock>
+                            <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="10">
                         <Run Text="{Binding Name}"/>
                         <Run Text="{Binding LastName}"/>
                             </TextBlock>
-                            <uwpkit:RoundImageEx Source="{Binding PathToImage}"
+                            <uwpkit:ImageEx Source="{Binding PathToImage}"
                                     Height="260"
                                     Width="200"
                                     BorderBrush="Orange"
-                                    BorderThickness="2"/>
-                            <uwpkit:HeaderedTextBlock Header="Email"
+                                    BorderThickness="2"
+                                    CornerRadius="10"/>
+                            <uwpkit:HeaderedTextBlock Margin="5" HorizontalAlignment="Center" Header="Email" FontSize="25"
                                                   Text="{Binding Email}"/>
                         </StackPanel>
                     </DataTemplate>
