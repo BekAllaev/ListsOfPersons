@@ -26,6 +26,11 @@
                         <SymbolIcon Symbol="{Binding FavoriteSymbol}"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
+                <AppBarButton Label="Pin" Command="{Binding PinCommand}">
+                    <AppBarButton.Icon>
+                        <SymbolIcon Symbol="Pin"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </controls:PageHeader.PrimaryCommands>
         </controls:PageHeader>
         <!--#endregion-->

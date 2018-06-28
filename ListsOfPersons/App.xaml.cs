@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
 using Template10.Services.NavigationService;
 using ListsOfPersons.Services.DialogServices;
+using ListsOfPersons.Services.TileServices;
 
 namespace ListsOfPersons
 {
@@ -60,6 +61,7 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<FavoritePageViewModel>();
             SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
+            SimpleIoc.Default.Register<ITileService, PersonTileServices>();
 
             // TODO: add your long-running task here
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));

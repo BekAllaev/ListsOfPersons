@@ -104,6 +104,9 @@
     <Compile Include="Services\RepositoryService\IRepositoryService.cs" />
     <Compile Include="Services\RepositoryService\PersonsRepositoryServiceFake.cs" />
     <Compile Include="Services\SettingsServices\SettingsService.cs" />
+    <Compile Include="Services\TileServices\ITileService.cs" />
+    <Compile Include="Services\TileServices\PersonTileServices.cs" />
+    <Compile Include="Services\TileServices\TileDesigner.cs" />
     <Compile Include="ViewModels\AddEditPageViewModel.cs" />
     <Compile Include="ViewModels\FavoritePageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -145,6 +148,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\LogoForTile.png" />
     <Content Include="Assets\Original.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />

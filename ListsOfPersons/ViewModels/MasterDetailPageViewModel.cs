@@ -18,6 +18,8 @@ using Windows.UI.Xaml;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Template10.Services.NavigationService;
+using Windows.UI.StartScreen;
+using ListsOfPersons.Services.TileServices;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -30,19 +32,24 @@ namespace ListsOfPersons.ViewModels
         DelegateCommand _addPersonCommand;
         DelegateCommand _editPersonCommand;
         DelegateCommand _makeFavoriteCommand;
+        DelegateCommand _pinCommand;
+        ITileService _tileService;
         Person _selectedPerson;
         Symbol _favoriteSymbol;
         int remainPersons;
+        SecondaryTile tileOnShow;
         #endregion
 
         #region Constructor
-        public MasterDetailPageViewModel(IRepositoryService<Person> personsList)
+        public MasterDetailPageViewModel(IRepositoryService<Person> personsList,ITileService tileService)
         {
             _personsRepositary = personsList;
+            _tileService = tileService;
             _favoriteSymbol = Symbol.Favorite;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
             _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
             _makeFavoriteCommand = new DelegateCommand(MakeFavoriteExecute, CanMakeFavorite);
+            _pinCommand = new DelegateCommand(PinExecute, CanPin);
             _addPersonCommand = new DelegateCommand(AddPersonExecute);
         }
         #endregion
@@ -65,6 +72,7 @@ namespace ListsOfPersons.ViewModels
                 DeletePersonCommand.RaiseCanExecuteChanged();
                 EditPersonCommand.RaiseCanExecuteChanged();
                 MakeFavoriteCommand.RaiseCanExecuteChanged();
+                PinCommand.RaiseCanExecuteChanged();
                 if (SelectedPerson != null && SelectedPerson.IsFavorite == true)
                     FavoriteSymbol = Symbol.Favorite;
                 else if (SelectedPerson != null && SelectedPerson.IsFavorite == false)
@@ -139,6 +147,22 @@ namespace ListsOfPersons.ViewModels
         }
 
         private bool CanDeletePerson() => SelectedPerson == null ? false : true;
+        #endregion
+
+        #region PinCommand
+        public DelegateCommand PinCommand
+        {
+            get { return _pinCommand ?? new DelegateCommand(PinExecute,CanPin); }
+        }
+
+        private void PinExecute()
+        {
+            tileOnShow = new SecondaryTile(Guid.NewGuid().ToString(), $"{SelectedPerson.Name} {SelectedPerson.LastName}", SelectedPerson.Id, new Uri("ms-appx:///Assets/LogoForTile.png"), TileSize.Square150x150);
+            _tileService.RequestCreate(tileOnShow);
+        }
+
+        private bool CanPin() => SelectedPerson == null ? false : true;
+
         #endregion
 
         #region EditCommand
