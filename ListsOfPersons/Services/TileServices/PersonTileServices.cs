@@ -10,23 +10,25 @@ namespace ListsOfPersons.Services.TileServices
 {
     public class PersonTileServices : ITileService
     {
-        public async void RequestCreate(SecondaryTile tile)
+        private bool IsPinned;
+        private bool IsExsist;
+        public async Task<bool> RequestCreate(SecondaryTile tile)
         {
-            //string tileID = tile.TileId;
-            //SecondaryTile tileToShow = new SecondaryTile(tileID);
-            //await tileToShow.RequestCreateAsync();
-            await tile.RequestCreateAsync();
+            IsPinned = await tile.RequestCreateAsync();
+            return IsPinned;
         }
 
-        public async void RequestDelete(SecondaryTile tile)
+        public async Task<bool> RequestDelete(SecondaryTile tile)
         {
-            await tile.RequestDeleteAsync();
+            IsPinned= await tile.RequestDeleteAsync();
+            return IsPinned;
         }
 
-        public void Exists(SecondaryTile tile)
+        public bool Exists(SecondaryTile tile)
         {
             string tileID = tile.TileId;
-            SecondaryTile.Exists(tileID);
+            IsExsist= SecondaryTile.Exists(tileID);
+            return IsExsist;
         }
     }
 }

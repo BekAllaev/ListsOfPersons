@@ -28,7 +28,7 @@
                 </AppBarButton>
                 <AppBarButton Label="Pin" Command="{Binding PinCommand}">
                     <AppBarButton.Icon>
-                        <SymbolIcon Symbol="Pin"/>
+                        <SymbolIcon Symbol="{Binding PinSymbol}"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
             </controls:PageHeader.PrimaryCommands>

@@ -15,8 +15,8 @@ namespace ListsOfPersons.Services.TileServices
     /// </summary>
     public interface ITileService
     {
-        void RequestCreate(SecondaryTile tile);
-        void RequestDelete(SecondaryTile tile);
-        void Exists(SecondaryTile tile);
+        Task<bool> RequestCreate(SecondaryTile tile);
+        Task<bool> RequestDelete(SecondaryTile tile);
+        bool Exists(SecondaryTile tile);
     }
 }

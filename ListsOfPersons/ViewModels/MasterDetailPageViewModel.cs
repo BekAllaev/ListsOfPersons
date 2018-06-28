@@ -35,6 +35,7 @@ namespace ListsOfPersons.ViewModels
         DelegateCommand _pinCommand;
         ITileService _tileService;
         Person _selectedPerson;
+        Symbol _pinSymbol;
         Symbol _favoriteSymbol;
         int remainPersons;
         SecondaryTile tileOnShow;
@@ -46,6 +47,7 @@ namespace ListsOfPersons.ViewModels
             _personsRepositary = personsList;
             _tileService = tileService;
             _favoriteSymbol = Symbol.Favorite;
+            _pinSymbol = Symbol.Pin;
             _deletePersonCommand = new DelegateCommand(DeletePersonExecute, CanDeletePerson);
             _editPersonCommand = new DelegateCommand(EditPersonExecute, CanEditPerson);
             _makeFavoriteCommand = new DelegateCommand(MakeFavoriteExecute, CanMakeFavorite);
@@ -84,6 +86,12 @@ namespace ListsOfPersons.ViewModels
         {
             set { Set(ref _favoriteSymbol, value); }
             get { return _favoriteSymbol; }
+        }
+
+        public Symbol PinSymbol
+        {
+            set { Set(ref _pinSymbol, value); }
+            get { return _pinSymbol; }
         }
         #endregion
 
@@ -155,10 +163,12 @@ namespace ListsOfPersons.ViewModels
             get { return _pinCommand ?? new DelegateCommand(PinExecute,CanPin); }
         }
 
-        private void PinExecute()
+        private async void PinExecute()
         {
             tileOnShow = new SecondaryTile(Guid.NewGuid().ToString(), $"{SelectedPerson.Name} {SelectedPerson.LastName}", SelectedPerson.Id, new Uri("ms-appx:///Assets/LogoForTile.png"), TileSize.Square150x150);
-            _tileService.RequestCreate(tileOnShow);
+            bool IsPinned = await _tileService.RequestCreate(tileOnShow);
+            if (IsPinned)
+                PinSymbol = Symbol.UnPin;
         }
 
         private bool CanPin() => SelectedPerson == null ? false : true;
