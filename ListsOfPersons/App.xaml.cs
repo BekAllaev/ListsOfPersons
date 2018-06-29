@@ -63,6 +63,7 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
             SimpleIoc.Default.Register<ITileService, PersonTileServices>();
+            SimpleIoc.Default.Register<PersonTileViewViewModel>();
 
             var arg = (LaunchActivatedEventArgs)args;
             string argument = arg.Arguments;
@@ -80,6 +81,8 @@ namespace ListsOfPersons
                 return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
             else if (page is FavoritePage)
                 return SimpleIoc.Default.GetInstance<FavoritePageViewModel>();
+            else if (page is Views.TileViewPage.PersonTileView)
+                return SimpleIoc.Default.GetInstance<PersonTileViewViewModel>();
             else if (page is AddEditPage)
                 return SimpleIoc.Default.GetInstance<AddEditPageViewModel>();
             else

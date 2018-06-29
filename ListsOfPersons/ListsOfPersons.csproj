@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\DetailPageViewModel.cs" />
     <Compile Include="ViewModels\MasterDetailPageViewModel.cs" />
     <Compile Include="ViewModels\PersonContentDialogViewModel.cs" />
+    <Compile Include="ViewModels\PersonTileViewViewModel.cs" />
     <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="Views\AddEditPage.xaml.cs">
       <DependentUpon>AddEditPage.xaml</DependentUpon>
@@ -139,6 +140,9 @@
     </Compile>
     <Compile Include="Views\Splash.xaml.cs">
       <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TileViewPage\PersonTileView.xaml.cs">
+      <DependentUpon>PersonTileView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Splash.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TileViewPage\PersonTileView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

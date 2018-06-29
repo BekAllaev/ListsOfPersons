@@ -21,7 +21,6 @@ using Template10.Services.NavigationService;
 using Windows.UI.StartScreen;
 using ListsOfPersons.Services.TileServices;
 using Template10.Common;
-using System.Windows;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -118,10 +117,7 @@ namespace ListsOfPersons.ViewModels
         {
             var argument = parameter as string;
             if(!string.IsNullOrEmpty(argument))
-            {
-                Person personOnTile = await _personsRepositary.GetByIdAsync(argument);
-                await NavigationService.NavigateAsync(typeof(Views.AddEditPage), personOnTile);
-            }
+                await NavigationService.NavigateAsync(typeof(Views.TileViewPage.PersonTileView),argument);
 
             var list = await _personsRepositary.GetAllAsync();
             Persons = new ObservableCollection<Person>(list);
