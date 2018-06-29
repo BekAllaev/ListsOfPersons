@@ -20,6 +20,8 @@ using System.Runtime.CompilerServices;
 using Template10.Services.NavigationService;
 using Windows.UI.StartScreen;
 using ListsOfPersons.Services.TileServices;
+using Template10.Common;
+using System.Windows;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -39,7 +41,6 @@ namespace ListsOfPersons.ViewModels
         Symbol _favoriteSymbol;
         int remainPersons;
         bool IsPinned;
-        bool IsRemoved;
         SecondaryTile tileOnShow;
         #endregion
 
@@ -77,7 +78,7 @@ namespace ListsOfPersons.ViewModels
                 EditPersonCommand.RaiseCanExecuteChanged();
                 MakeFavoriteCommand.RaiseCanExecuteChanged();
                 PinCommand.RaiseCanExecuteChanged();
-                if (_tileService.Exists(SelectedPerson.Id))
+                if (SelectedPerson != null && _tileService.Exists(SelectedPerson.Id))
                     PinSymbol = Symbol.UnPin;
                 else
                     PinSymbol = Symbol.Pin;
@@ -126,6 +127,7 @@ namespace ListsOfPersons.ViewModels
         public async override Task OnNavigatingFromAsync(NavigatingEventArgs args)
         {
             FavoriteSymbol = Symbol.Favorite;
+            PinSymbol = Symbol.Pin;
             await Task.CompletedTask;
         }
         #endregion

@@ -13,11 +13,21 @@ namespace ListsOfPersons.Services.TileServices
     {
         private ObservableCollection<SecondaryTile> tiles = new ObservableCollection<SecondaryTile>();
 
+        #region Implementation of ITileService
+        /// <summary>
+        /// Add tile to START menu
+        /// </summary>
+        /// <param name="tile">
+        /// Tile that add on menu
+        /// </param>
+        /// <returns></returns>
         public async Task<bool> RequestCreate(SecondaryTile tile)
         {
             var IsPinned = await tile.RequestCreateAsync();
+
             if (IsPinned)
                 tiles.Add(tile);
+
             return IsPinned;
         }
 
@@ -25,17 +35,27 @@ namespace ListsOfPersons.Services.TileServices
         /// Remove tile from START menu
         /// </summary>
         /// <param name="personId">
-        /// Persons Id that show on tile
+        /// Id of person that shown on tile
         /// </param>
         /// <returns></returns>
         public async void RequestDelete(string personId)
         {
             var currentTile = tiles.First(a => a.Arguments == personId);
 
-            await currentTile.RequestDeleteAsync();
-            tiles.Remove(currentTile);
+            if (SecondaryTile.Exists(currentTile.TileId))
+            {
+                await currentTile.RequestDeleteAsync();
+                tiles.Remove(currentTile);
+            }
         }
 
+        /// <summary>
+        /// Check exists tile or not
+        /// </summary>
+        /// <param name="personId">
+        /// Id of person that shown on tile
+        /// </param>
+        /// <returns></returns>
         public bool Exists(string personId)
         {
             if (tiles.Count != 0)
@@ -46,7 +66,9 @@ namespace ListsOfPersons.Services.TileServices
             }
             else
                 return false;
+
             return true;
         }
+        #endregion
     }
 }
