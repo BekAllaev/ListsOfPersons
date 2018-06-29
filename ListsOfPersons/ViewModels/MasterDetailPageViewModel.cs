@@ -116,6 +116,13 @@ namespace ListsOfPersons.ViewModels
         /// <returns></returns>
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            var argument = parameter as string;
+            if(!string.IsNullOrEmpty(argument))
+            {
+                Person personOnTile = await _personsRepositary.GetByIdAsync(argument);
+                await NavigationService.NavigateAsync(typeof(Views.AddEditPage), personOnTile);
+            }
+
             var list = await _personsRepositary.GetAllAsync();
             Persons = new ObservableCollection<Person>(list);
 

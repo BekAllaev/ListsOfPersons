@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls;
 using Template10.Services.NavigationService;
 using ListsOfPersons.Services.DialogServices;
 using ListsOfPersons.Services.TileServices;
+using Windows.UI.StartScreen;
 
 namespace ListsOfPersons
 {
@@ -63,8 +64,14 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
             SimpleIoc.Default.Register<ITileService, PersonTileServices>();
 
+            var arg = (LaunchActivatedEventArgs)args;
+            string argument = arg.Arguments;
+
+            //if (!string.IsNullOrEmpty(argument))
+            //    await NavigationService.NavigateAsync(typeof(Views.AddEditPage), argument);
+
             // TODO: add your long-running task here
-            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
+            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage),argument);
         }
 
         public override INavigable ResolveForPage(Page page, NavigationService navigationService)

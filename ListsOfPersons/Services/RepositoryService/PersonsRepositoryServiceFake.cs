@@ -74,13 +74,12 @@ namespace ListsOfPersons.Services.RepositoryService
             return await Task.Run(() =>
                  (from person in _persons
                  where person.IsFavorite.Equals(true)
-                 select person).ToList<Person>()
-            );
+                 select person).ToList<Person>());
         }
 
-        public Task<Person> GetByIdAsync(string id)
+        public async Task<Person> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Task.Run(() => _persons.Find(a => a.Id == id));
         }
 
         public async Task UpdateAsync(Person person)
