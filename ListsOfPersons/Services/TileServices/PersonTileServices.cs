@@ -5,30 +5,48 @@ using System.Text;
 using System.Threading.Tasks;
 using ListsOfPersons.Services.TileServices;
 using Windows.UI.StartScreen;
+using System.Collections.ObjectModel;
 
 namespace ListsOfPersons.Services.TileServices
 {
     public class PersonTileServices : ITileService
     {
-        private bool IsPinned;
-        private bool IsExsist;
+        private ObservableCollection<SecondaryTile> tiles = new ObservableCollection<SecondaryTile>();
+
         public async Task<bool> RequestCreate(SecondaryTile tile)
         {
-            IsPinned = await tile.RequestCreateAsync();
+            var IsPinned = await tile.RequestCreateAsync();
+            if (IsPinned)
+                tiles.Add(tile);
             return IsPinned;
         }
 
-        public async Task<bool> RequestDelete(SecondaryTile tile)
+        /// <summary>
+        /// Remove tile from START menu
+        /// </summary>
+        /// <param name="personId">
+        /// Persons Id that show on tile
+        /// </param>
+        /// <returns></returns>
+        public async void RequestDelete(string personId)
         {
-            IsPinned= await tile.RequestDeleteAsync();
-            return IsPinned;
+            var currentTile = tiles.First(a => a.Arguments == personId);
+
+            await currentTile.RequestDeleteAsync();
+            tiles.Remove(currentTile);
         }
 
-        public bool Exists(SecondaryTile tile)
+        public bool Exists(string personId)
         {
-            string tileID = tile.TileId;
-            IsExsist= SecondaryTile.Exists(tileID);
-            return IsExsist;
+            if (tiles.Count != 0)
+            {
+                var currentTile = tiles.FirstOrDefault(a => a.Arguments == personId);
+                if (currentTile == null)
+                    return false;
+            }
+            else
+                return false;
+            return true;
         }
     }
 }

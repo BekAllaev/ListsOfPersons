@@ -38,11 +38,13 @@ namespace ListsOfPersons.ViewModels
         Symbol _pinSymbol;
         Symbol _favoriteSymbol;
         int remainPersons;
+        bool IsPinned;
+        bool IsRemoved;
         SecondaryTile tileOnShow;
         #endregion
 
         #region Constructor
-        public MasterDetailPageViewModel(IRepositoryService<Person> personsList,ITileService tileService)
+        public MasterDetailPageViewModel(IRepositoryService<Person> personsList, ITileService tileService)
         {
             _personsRepositary = personsList;
             _tileService = tileService;
@@ -75,6 +77,10 @@ namespace ListsOfPersons.ViewModels
                 EditPersonCommand.RaiseCanExecuteChanged();
                 MakeFavoriteCommand.RaiseCanExecuteChanged();
                 PinCommand.RaiseCanExecuteChanged();
+                if (_tileService.Exists(SelectedPerson.Id))
+                    PinSymbol = Symbol.UnPin;
+                else
+                    PinSymbol = Symbol.Pin;
                 if (SelectedPerson != null && SelectedPerson.IsFavorite == true)
                     FavoriteSymbol = Symbol.Favorite;
                 else if (SelectedPerson != null && SelectedPerson.IsFavorite == false)
@@ -160,13 +166,22 @@ namespace ListsOfPersons.ViewModels
         #region PinCommand
         public DelegateCommand PinCommand
         {
-            get { return _pinCommand ?? new DelegateCommand(PinExecute,CanPin); }
+            get { return _pinCommand ?? new DelegateCommand(PinExecute, CanPin); }
         }
 
         private async void PinExecute()
         {
+            IsPinned = false;
             tileOnShow = new SecondaryTile(Guid.NewGuid().ToString(), $"{SelectedPerson.Name} {SelectedPerson.LastName}", SelectedPerson.Id, new Uri("ms-appx:///Assets/LogoForTile.png"), TileSize.Square150x150);
-            bool IsPinned = await _tileService.RequestCreate(tileOnShow);
+
+            if (PinSymbol == Symbol.UnPin)
+            {
+                _tileService.RequestDelete(SelectedPerson.Id);
+                PinSymbol = Symbol.Pin;
+            }
+            else
+                IsPinned = await _tileService.RequestCreate(tileOnShow);
+
             if (IsPinned)
                 PinSymbol = Symbol.UnPin;
         }

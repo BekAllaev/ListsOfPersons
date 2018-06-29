@@ -16,7 +16,9 @@ namespace ListsOfPersons.Services.TileServices
     public interface ITileService
     {
         Task<bool> RequestCreate(SecondaryTile tile);
-        Task<bool> RequestDelete(SecondaryTile tile);
-        bool Exists(SecondaryTile tile);
+
+        void RequestDelete(string id);
+
+        bool Exists(string id);
     }
 }
