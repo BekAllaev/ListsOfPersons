@@ -23,7 +23,11 @@
                              RelativePanel.AlignRightWithPanel="True"
                              RelativePanel.AlignTopWithPanel="True">
                 <controls:PageHeader.PrimaryCommands>
-                    <AppBarButton Icon="Pin"/>
+                    <AppBarButton Label="Pin" Command="{x:Bind ViewModel.PinCommand}">
+                        <AppBarButton.Icon>
+                            <SymbolIcon Symbol="{x:Bind ViewModel.PinSymbol,Mode=TwoWay}"/>
+                        </AppBarButton.Icon>
+                    </AppBarButton>
                 </controls:PageHeader.PrimaryCommands>
             </controls:PageHeader>
             <Grid RelativePanel.Below="PageHeader">

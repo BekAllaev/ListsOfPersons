@@ -7,6 +7,9 @@ using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using ListsOfPersons.Services.RepositoryService;
 using ListsOfPersons.Models;
+using Windows.UI.Xaml.Controls;
+using ListsOfPersons.Services.TileServices;
+using Windows.UI.StartScreen;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -14,13 +17,20 @@ namespace ListsOfPersons.ViewModels
     {
         #region Fields
         IRepositoryService<Person> _personsRepositary;
+        DelegateCommand _pinCommand;
+        ITileService _tileService;
+        Symbol _pinSymbol;
+        bool IsPinned;
         Person _showedPerson;
         #endregion
 
         #region Constructor
-        public PersonTileViewViewModel(IRepositoryService<Person> personsRepositary)
+        public PersonTileViewViewModel(IRepositoryService<Person> personsRepositary, ITileService tileService)
         {
             _personsRepositary = personsRepositary;
+            _tileService = tileService;
+            _pinSymbol = Symbol.UnPin;
+            _pinCommand = new DelegateCommand(PinExecute);
         }
         #endregion
 
@@ -38,6 +48,41 @@ namespace ListsOfPersons.ViewModels
             set { Set(ref _showedPerson, value); }
             get { return _showedPerson; }
         }
+
+        public Symbol PinSymbol
+        {
+            set { Set(ref _pinSymbol, value); }
+            get { return _pinSymbol; }
+        }
+        #endregion
+
+        #region Commands
+        #region PinCommand
+        public DelegateCommand PinCommand
+        {
+            get { return _pinCommand ?? new DelegateCommand(PinExecute); }
+        }
+
+        private async void PinExecute()
+        {
+            IsPinned = false;
+
+            if (PinSymbol == Symbol.Pin)
+            {
+                var tileOnShow = new SecondaryTile(Guid.NewGuid().ToString(), $"{ShowedPerson.Name} {ShowedPerson.LastName}", ShowedPerson.Id, new Uri("ms-appx:///Assets/LogoForTile.png"), TileSize.Square150x150);
+                IsPinned = await _tileService.RequestCreate(tileOnShow);
+                PinSymbol = Symbol.UnPin;
+            }
+            else
+            {
+                _tileService.RequestDelete(ShowedPerson.Id);
+                PinSymbol = Symbol.Pin;
+            }
+
+            if (IsPinned)
+                PinSymbol = Symbol.UnPin;
+        }
+        #endregion
         #endregion
     }
 }
