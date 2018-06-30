@@ -16,12 +16,12 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
     </Page.Resources>
-
+    
     <ScrollViewer>
         <RelativePanel>
             <controls:PageHeader x:Name="PageHeader" RelativePanel.AlignLeftWithPanel="True"
                              RelativePanel.AlignRightWithPanel="True"
-                             RelativePanel.AlignTopWithPanel="True">
+                             RelativePanel.AlignTopWithPanel="True" Background="Green">
                 <controls:PageHeader.PrimaryCommands>
                     <AppBarButton Label="Pin" Command="{x:Bind ViewModel.PinCommand}">
                         <AppBarButton.Icon>
