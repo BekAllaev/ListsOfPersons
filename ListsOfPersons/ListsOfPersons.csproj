@@ -96,14 +96,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\AddEditPageViewModel.cs" />
-    <Compile Include="ViewModels\FavoritePageViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\DetailPageViewModel.cs" />
-    <Compile Include="ViewModels\MasterDetailPageViewModel.cs" />
-    <Compile Include="ViewModels\PersonContentDialogViewModel.cs" />
-    <Compile Include="ViewModels\PersonTileViewViewModel.cs" />
-    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
     <Compile Include="Views\AddEditPage.xaml.cs">
       <DependentUpon>AddEditPage.xaml</DependentUpon>
     </Compile>
@@ -245,6 +237,10 @@
     <ProjectReference Include="..\TypesLibrary\TypesLibrary.csproj">
       <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>
       <Name>TypesLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModelsLibrary\ViewModelsLibrary.csproj">
+      <Project>{e24ab6ad-499e-4050-98ba-de00025ab139}</Project>
+      <Name>ViewModelsLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

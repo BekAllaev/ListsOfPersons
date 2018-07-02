@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 using ServicesLibrary.DialogServices;
 using System.Collections.ObjectModel;
 
-namespace ListsOfPersons.ViewModels
+namespace ViewModelsLibrary
 {
     public class FavoritePageViewModel : ViewModelBase
     {

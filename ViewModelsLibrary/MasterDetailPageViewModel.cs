@@ -22,7 +22,7 @@ using Windows.UI.StartScreen;
 using ServicesLibrary.TileServices;
 using Template10.Common;
 
-namespace ListsOfPersons.ViewModels
+namespace ViewModelsLibrary
 {
     public class MasterDetailPageViewModel : ViewModelBase
     {

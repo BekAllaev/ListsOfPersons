@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Template10.Mvvm;
 using TypesLibrary.Models;
 
-namespace ListsOfPersons.ViewModels
+namespace ViewModelsLibrary
 {
     public class PersonContentDialogViewModel : ViewModelBase
     {

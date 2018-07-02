@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Navigation;
 using ServicesLibrary.RepositoryService;
 using System.Runtime.CompilerServices;
 
-namespace ListsOfPersons.ViewModels
+namespace ViewModelsLibrary
 {
     public class AddEditPageViewModel : ViewModelBase
     {

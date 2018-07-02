@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 using ServicesLibrary.TileServices;
 using Windows.UI.StartScreen;
 
-namespace ListsOfPersons.ViewModels
+namespace ViewModelsLibrary
 {
     public class PersonTileViewViewModel : ViewModelBase
     {
