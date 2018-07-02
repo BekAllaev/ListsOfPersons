@@ -1,5 +1,5 @@
 ﻿using System;
-using ListsOfPersons.ProxyObjects;
+using TypesLibrary.ProxyObjects;
 using System.Collections.Specialized;
 using ListsOfPersons.Messages;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ListsOfPersons.Services.RepositoryService;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Messaging;
 using Template10.Mvvm;

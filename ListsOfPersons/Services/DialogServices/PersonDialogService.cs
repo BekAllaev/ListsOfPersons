@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using ListsOfPersons.Views.ContentDailogs;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 
 namespace ListsOfPersons.Services.DialogServices
 {

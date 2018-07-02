@@ -1,11 +1,11 @@
 ﻿using System;
-using ListsOfPersons.ProxyObjects;
+using TypesLibrary.ProxyObjects;
 using System.Collections.Generic;
 using ListsOfPersons.Services;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using ListsOfPersons.Services.RepositoryService;

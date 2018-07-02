@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 
 namespace ListsOfPersons.ViewModels
 {

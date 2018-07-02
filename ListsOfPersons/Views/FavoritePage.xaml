@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Template10.Controls"
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:model="using:ListsOfPersons.Models"
+    xmlns:model="using:TypesLibrary.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">

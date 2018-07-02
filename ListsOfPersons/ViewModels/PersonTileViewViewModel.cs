@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using ListsOfPersons.Services.RepositoryService;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using Windows.UI.Xaml.Controls;
 using ListsOfPersons.Services.TileServices;
 using Windows.UI.StartScreen;

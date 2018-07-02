@@ -6,7 +6,7 @@ using Template10.Controls;
 using Template10.Common;
 using GalaSoft.MvvmLight.Ioc;
 using ListsOfPersons.Services.RepositoryService;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using System;
 using System.Linq;
 using ListsOfPersons.Views;

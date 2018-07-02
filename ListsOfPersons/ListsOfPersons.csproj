@@ -96,9 +96,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Messages\PersonsChangedMessage.cs" />
-    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProxyObjects\PersonProxy.cs" />
     <Compile Include="Services\DialogServices\IDialogService.cs" />
     <Compile Include="Services\DialogServices\PersonDialogService.cs" />
     <Compile Include="Services\RepositoryService\IRepositoryService.cs" />
@@ -243,7 +241,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TypesLibrary\TypesLibrary.csproj">
+      <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>
+      <Name>TypesLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.4</Version>

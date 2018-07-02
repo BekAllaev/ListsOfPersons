@@ -1,12 +1,12 @@
 ﻿using System;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Template10.Validation;
 
-namespace ListsOfPersons.ProxyObjects
+namespace TypesLibrary.ProxyObjects
 {
     public class PersonProxy : ValidatableModelBase
     {

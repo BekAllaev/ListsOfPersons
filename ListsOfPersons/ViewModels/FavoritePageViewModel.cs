@@ -3,7 +3,7 @@ using Template10.Mvvm;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ListsOfPersons.Models;
+using TypesLibrary.Models;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using ListsOfPersons.Services.RepositoryService;
