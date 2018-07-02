@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
 
-namespace ListsOfPersons.Messages
+namespace MessagesLibrary
 {
     public enum CRUD { Create, Read, Update, Delete }
     /// <summary>
     /// Instance of this type incasulate information about collection changing
     /// </summary>
-    class PersonsChangedMessage : MessageBase
+    public class PersonsChangedMessage : MessageBase
     {
         public bool IsAvailable;
 

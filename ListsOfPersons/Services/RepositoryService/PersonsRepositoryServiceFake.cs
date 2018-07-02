@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TypesLibrary.Models;
 using GalaSoft.MvvmLight.Messaging;
-using ListsOfPersons.Messages;
+using MessagesLibrary;
 
 
 namespace ListsOfPersons.Services.RepositoryService
