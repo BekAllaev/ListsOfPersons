@@ -15,13 +15,13 @@ namespace ListsOfPersons.Views
     {
         public static Shell Instance { get; set; }
         public static HamburgerMenu HamburgerMenu => Instance.MyHamburgerMenu;
-        Services.SettingsServices.SettingsService _settings;
+        ServicesLibrary.SettingsServices.SettingsService _settings;
 
         public Shell()
         {
             Instance = this;
             InitializeComponent();
-            _settings = Services.SettingsServices.SettingsService.Instance;
+            _settings = ServicesLibrary.SettingsServices.SettingsService.Instance;
         }
 
         public Shell(INavigationService navigationService) : this()

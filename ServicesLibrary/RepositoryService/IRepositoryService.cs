@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ListsOfPersons.Services.RepositoryService
+namespace ServicesLibrary.RepositoryService
 {
     /// <summary>
     /// Consist of editing and read methods

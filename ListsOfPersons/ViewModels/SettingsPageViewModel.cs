@@ -15,7 +15,7 @@ namespace ListsOfPersons.ViewModels
 
     public class SettingsPartViewModel : ViewModelBase
     {
-        Services.SettingsServices.SettingsService _settings;
+        ServicesLibrary.SettingsServices.SettingsService _settings;
 
         public SettingsPartViewModel()
         {
@@ -25,7 +25,7 @@ namespace ListsOfPersons.ViewModels
             }
             else
             {
-                _settings = Services.SettingsServices.SettingsService.Instance;
+                _settings = ServicesLibrary.SettingsServices.SettingsService.Instance;
             }
         }
 

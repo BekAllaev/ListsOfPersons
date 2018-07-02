@@ -1,14 +1,13 @@
 ﻿using System;
 using TypesLibrary.ProxyObjects;
 using System.Collections.Generic;
-using ListsOfPersons.Services;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TypesLibrary.Models;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
-using ListsOfPersons.Services.RepositoryService;
+using ServicesLibrary.RepositoryService;
 using System.Runtime.CompilerServices;
 
 namespace ListsOfPersons.ViewModels

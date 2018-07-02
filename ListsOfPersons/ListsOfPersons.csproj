@@ -96,13 +96,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DialogServices\IDialogService.cs" />
-    <Compile Include="Services\DialogServices\PersonDialogService.cs" />
-    <Compile Include="Services\RepositoryService\IRepositoryService.cs" />
-    <Compile Include="Services\RepositoryService\PersonsRepositoryServiceFake.cs" />
-    <Compile Include="Services\SettingsServices\SettingsService.cs" />
-    <Compile Include="Services\TileServices\ITileService.cs" />
-    <Compile Include="Services\TileServices\PersonTileServices.cs" />
     <Compile Include="ViewModels\AddEditPageViewModel.cs" />
     <Compile Include="ViewModels\FavoritePageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -244,6 +237,10 @@
     <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
       <Project>{57dcf1d4-13b1-495b-8e74-bd88ea832349}</Project>
       <Name>MessagesLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicesLibrary\ServicesLibrary.csproj">
+      <Project>{816ea7b2-d41b-4e8e-8bdb-a2bf554303df}</Project>
+      <Name>ServicesLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\TypesLibrary\TypesLibrary.csproj">
       <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>

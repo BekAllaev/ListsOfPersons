@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace ListsOfPersons.Services.DialogServices
+namespace ServicesLibrary.DialogServices
 {
     public interface IDialogService
     {

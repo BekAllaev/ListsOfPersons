@@ -1,11 +1,11 @@
 ﻿using Windows.UI.Xaml;
 using System.Threading.Tasks;
-using ListsOfPersons.Services.SettingsServices;
+using ServicesLibrary.SettingsServices;
 using Windows.ApplicationModel.Activation;
 using Template10.Controls;
 using Template10.Common;
 using GalaSoft.MvvmLight.Ioc;
-using ListsOfPersons.Services.RepositoryService;
+using ServicesLibrary.RepositoryService;
 using TypesLibrary.Models;
 using System;
 using System.Linq;
@@ -14,8 +14,8 @@ using ListsOfPersons.ViewModels;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
 using Template10.Services.NavigationService;
-using ListsOfPersons.Services.DialogServices;
-using ListsOfPersons.Services.TileServices;
+using ServicesLibrary.DialogServices;
+using ServicesLibrary.TileServices;
 using Windows.UI.StartScreen;
 
 namespace ListsOfPersons
@@ -60,7 +60,7 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
             SimpleIoc.Default.Register<AddEditPageViewModel>();
             SimpleIoc.Default.Register<FavoritePageViewModel>();
-            SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
+            //SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
             SimpleIoc.Default.Register<ITileService, PersonTileServices>();
             SimpleIoc.Default.Register<PersonTileViewViewModel>();

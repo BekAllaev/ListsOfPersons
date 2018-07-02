@@ -8,9 +8,9 @@ using GalaSoft.MvvmLight.Messaging;
 using MessagesLibrary;
 
 
-namespace ListsOfPersons.Services.RepositoryService
+namespace ServicesLibrary.RepositoryService
 {
-    class PersonsRepositoryServiceFake : IRepositoryService<Person>
+    public class PersonsRepositoryServiceFake : IRepositoryService<Person>
     {
         private List<Person> _persons;
 

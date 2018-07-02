@@ -6,9 +6,9 @@ using System.Text;
 using TypesLibrary.Models;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using ListsOfPersons.Services.RepositoryService;
+using ServicesLibrary.RepositoryService;
 using Windows.UI.Xaml.Navigation;
-using ListsOfPersons.Services.DialogServices;
+using ServicesLibrary.DialogServices;
 using System.Collections.ObjectModel;
 
 namespace ListsOfPersons.ViewModels

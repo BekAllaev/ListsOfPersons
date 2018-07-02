@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.StartScreen;
 
-namespace ListsOfPersons.Services.TileServices
+namespace ServicesLibrary.TileServices
 {
     /// <summary>
     /// Поведение обозначаюшие работу над плиткой UWP

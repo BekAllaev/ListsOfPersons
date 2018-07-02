@@ -3,7 +3,7 @@ using Template10.Common;
 using Template10.Utils;
 using Windows.UI.Xaml;
 
-namespace ListsOfPersons.Services.SettingsServices
+namespace ServicesLibrary.SettingsServices
 {
     public class SettingsService
     {
@@ -40,7 +40,7 @@ namespace ListsOfPersons.Services.SettingsServices
             {
                 _helper.Write(nameof(AppTheme), value.ToString());
                 (Window.Current.Content as FrameworkElement).RequestedTheme = value.ToElementTheme();
-                Views.Shell.HamburgerMenu.RefreshStyles(value, true);
+                //Views.Shell.HamburgerMenu.RefreshStyles(value, true);
             }
         }
 
@@ -60,7 +60,7 @@ namespace ListsOfPersons.Services.SettingsServices
             set
             {
                 _helper.Write(nameof(ShowHamburgerButton), value);
-                Views.Shell.HamburgerMenu.HamburgerButtonVisibility = value ? Visibility.Visible : Visibility.Collapsed;
+                //Views.Shell.HamburgerMenu.HamburgerButtonVisibility = value ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -70,7 +70,7 @@ namespace ListsOfPersons.Services.SettingsServices
             set
             {
                 _helper.Write(nameof(IsFullScreen), value);
-                Views.Shell.HamburgerMenu.IsFullScreen = value;
+                //Views.Shell.HamburgerMenu.IsFullScreen = value;
             }
         }
     }

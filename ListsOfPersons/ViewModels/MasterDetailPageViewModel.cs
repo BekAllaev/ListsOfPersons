@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ListsOfPersons.Services.RepositoryService;
+using ServicesLibrary.RepositoryService;
 using TypesLibrary.Models;
 using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight.Messaging;
@@ -19,7 +19,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Template10.Services.NavigationService;
 using Windows.UI.StartScreen;
-using ListsOfPersons.Services.TileServices;
+using ServicesLibrary.TileServices;
 using Template10.Common;
 
 namespace ListsOfPersons.ViewModels

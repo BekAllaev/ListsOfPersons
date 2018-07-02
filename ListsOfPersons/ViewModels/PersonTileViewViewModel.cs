@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
-using ListsOfPersons.Services.RepositoryService;
+using ServicesLibrary.RepositoryService;
 using TypesLibrary.Models;
 using Windows.UI.Xaml.Controls;
-using ListsOfPersons.Services.TileServices;
+using ServicesLibrary.TileServices;
 using Windows.UI.StartScreen;
 
 namespace ListsOfPersons.ViewModels
