@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{816EA7B2-D41B-4E8E-8BDB-A2BF554303DF}</ProjectGuid>
+    <ProjectGuid>{356652CD-2B14-477C-8CE7-8E3E010177EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServicesLibrary</RootNamespace>
-    <AssemblyName>ServicesLibrary</AssemblyName>
+    <RootNamespace>DomenModel</RootNamespace>
+    <AssemblyName>DomenModel</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
@@ -106,40 +106,18 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DialogServices\IDialogService.cs" />
-    <Compile Include="DialogServices\PersonDialogService.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RepositoryService\IRepositoryService.cs" />
-    <Compile Include="RepositoryService\PersonsRepositoryServiceFake.cs" />
-    <Compile Include="SettingsServices\SettingsService.cs" />
-    <Compile Include="TileServices\ITileService.cs" />
-    <Compile Include="TileServices\PersonTileServices.cs" />
-    <EmbeddedResource Include="Properties\ServicesLibrary.rd.xml" />
+    <Compile Include="ProxyObjects\PersonProxy.cs" />
+    <EmbeddedResource Include="Properties\TypesLibrary.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.1.5</Version>
     </PackageReference>
-    <PackageReference Include="MvvmLight">
-      <Version>5.4.1</Version>
+    <PackageReference Include="Template10-Validation">
+      <Version>1.0.2</Version>
     </PackageReference>
-    <PackageReference Include="Template10">
-      <Version>1.1.12</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
-      <Project>{57dcf1d4-13b1-495b-8e74-bd88ea832349}</Project>
-      <Name>MessagesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypesLibrary\TypesLibrary.csproj">
-      <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>
-      <Name>TypesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewsLibrary\ViewsLibrary.csproj">
-      <Project>{656aaeb5-90f8-4fd0-9abd-a03560bd0e73}</Project>
-      <Name>ViewsLibrary</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

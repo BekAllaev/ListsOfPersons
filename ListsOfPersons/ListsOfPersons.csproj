@@ -95,7 +95,50 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DialogHelper\IDialogHelper.cs" />
+    <Compile Include="Helpers\DialogHelper\PersonDialogHelper.cs" />
+    <Compile Include="Helpers\SettingsHelper\SettingsHelper.cs" />
+    <Compile Include="Helpers\TileHelper\ITileHelper.cs" />
+    <Compile Include="Helpers\TileHelper\PersonTileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AddEditPageViewModel.cs" />
+    <Compile Include="ViewModels\DetailPageViewModel.cs" />
+    <Compile Include="ViewModels\FavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\MasterDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\PersonContentDialogViewModel.cs" />
+    <Compile Include="ViewModels\PersonTileViewViewModel.cs" />
+    <Compile Include="ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="Views\AddEditPage.xaml.cs">
+      <DependentUpon>AddEditPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Busy.xaml.cs">
+      <DependentUpon>Busy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ContentDailogs\PersonContentDialog.xaml.cs">
+      <DependentUpon>PersonContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FavoritePage.xaml.cs">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MasterDetailPage.xaml.cs">
+      <DependentUpon>MasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Splash.xaml.cs">
+      <DependentUpon>Splash.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TileViewPage\PersonTileView.xaml.cs">
+      <DependentUpon>PersonTileView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -154,27 +197,59 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Views\AddEditPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Busy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ContentDailogs\PersonContentDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FavoritePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MasterDetailPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Shell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Splash.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TileViewPage\PersonTileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DomenModel\DomenModel.csproj">
+      <Project>{b417b368-5bf1-44a2-a00f-2ff83ccb9e79}</Project>
+      <Name>DomenModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
       <Project>{57dcf1d4-13b1-495b-8e74-bd88ea832349}</Project>
       <Name>MessagesLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServicesLibrary\ServicesLibrary.csproj">
-      <Project>{816ea7b2-d41b-4e8e-8bdb-a2bf554303df}</Project>
-      <Name>ServicesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypesLibrary\TypesLibrary.csproj">
-      <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>
-      <Name>TypesLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModelsLibrary\ViewModelsLibrary.csproj">
-      <Project>{e24ab6ad-499e-4050-98ba-de00025ab139}</Project>
-      <Name>ViewModelsLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewsLibrary\ViewsLibrary.csproj">
-      <Project>{656aaeb5-90f8-4fd0-9abd-a03560bd0e73}</Project>
-      <Name>ViewsLibrary</Name>
+    <ProjectReference Include="..\RepositoryService\RepositoryService.csproj">
+      <Project>{9dd56756-0cc7-4152-9df9-1312cb291958}</Project>
+      <Name>RepositoryService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +278,7 @@
       <Version>1.0.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

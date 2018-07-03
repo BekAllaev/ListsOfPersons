@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.StartScreen;
 
-namespace ServicesLibrary.TileServices
+namespace ListsOfPersons.Helpers.TileHelper
 {
     /// <summary>
     /// Поведение обозначаюшие работу над плиткой UWP
@@ -13,7 +13,7 @@ namespace ServicesLibrary.TileServices
     /// 2). Открепить плитку от СТАРТ меню
     /// 3). Проверить прикреплена ли плитка
     /// </summary>
-    public interface ITileService
+    public interface ITileHelper
     {
         Task<bool> RequestCreate(SecondaryTile tile);
 

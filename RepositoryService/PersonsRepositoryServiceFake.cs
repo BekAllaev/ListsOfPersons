@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TypesLibrary.Models;
+using DomenModel.Models;
 using GalaSoft.MvvmLight.Messaging;
 using MessagesLibrary;
 
-namespace ServicesLibrary.RepositoryService
+namespace RepositoryService
 {
     public class PersonsRepositoryServiceFake : IRepositoryService<Person>
     {
@@ -72,8 +72,8 @@ namespace ServicesLibrary.RepositoryService
         {
             return await Task.Run(() =>
                  (from person in _persons
-                 where person.IsFavorite.Equals(true)
-                 select person).ToList<Person>());
+                  where person.IsFavorite.Equals(true)
+                  select person).ToList<Person>());
         }
 
         public async Task<Person> GetByIdAsync(string id)
@@ -127,5 +127,6 @@ namespace ServicesLibrary.RepositoryService
         }
 
         #endregion
+
     }
 }

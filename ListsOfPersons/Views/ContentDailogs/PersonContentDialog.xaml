@@ -1,0 +1,24 @@
+﻿<ContentDialog
+    x:Class="ListsOfPersons.Views.ContentDailogs.PersonContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
+    mc:Ignorable="d"
+    Title="{x:Bind ViewModel.FullName}"
+    PrimaryButtonText="Submit">
+    
+    <RelativePanel RenderTransformOrigin="0.5,0.5">
+        <RelativePanel.ChildrenTransitions>
+            <TransitionCollection>
+                <ContentThemeTransition VerticalOffset="50"/>
+            </TransitionCollection>
+        </RelativePanel.ChildrenTransitions>
+        <ToggleSwitch x:Name="Switcher" IsOn="{x:Bind ViewModel.SelectedPerson.IsFavorite,Mode=TwoWay}" Header="Is favorite" OnContent="Yes" OffContent="Off" RelativePanel.AlignRightWithPanel="True" Margin="0,0,-40,0"/>
+        <controls:ImageEx x:Name="Image" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Height="260" Source="{x:Bind ViewModel.SelectedPerson.PathToImage}" RelativePanel.Below="Switcher"/>
+        <ScrollViewer RelativePanel.Below="Image">
+            <TextBlock TextWrapping="Wrap" Text="{x:Bind ViewModel.SelectedPerson.Notes}"/>
+        </ScrollViewer>
+    </RelativePanel>
+</ContentDialog>

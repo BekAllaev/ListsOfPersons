@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using ViewsLibrary.ContentDailogs;
-using TypesLibrary.Models;
+using DomenModel.Models;
+using ListsOfPersons.Views.ContentDailogs;
 
-namespace ServicesLibrary.DialogServices
+namespace ListsOfPersons.Helpers.DialogHelper
 {
-    public class PersonDialogService : IDialogService
+    public class PersonDialogHelper : IDialogHelper
     {
         public ContentDialogResult DialogResult { get; private set; }
 

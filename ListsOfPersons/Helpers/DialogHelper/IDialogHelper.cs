@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace ServicesLibrary.DialogServices
+namespace ListsOfPersons.Helpers.DialogHelper
 {
-    public interface IDialogService
+    public interface IDialogHelper
     {
         Task<ContentDialogResult> ShowAsync(object entity);
     }

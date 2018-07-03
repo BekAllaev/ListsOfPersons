@@ -1,21 +1,21 @@
 ﻿using Windows.UI.Xaml;
 using System.Threading.Tasks;
-using ServicesLibrary.SettingsServices;
+using ListsOfPersons.Helpers.SettingsHelper;
 using Windows.ApplicationModel.Activation;
 using Template10.Controls;
 using Template10.Common;
 using GalaSoft.MvvmLight.Ioc;
-using ServicesLibrary.RepositoryService;
-using TypesLibrary.Models;
+using RepositoryService;
+using DomenModel.Models;
 using System;
+using ListsOfPersons.Views;
 using System.Linq;
-using ViewModelsLibrary;
-using ViewsLibrary;
+using ListsOfPersons.ViewModels;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
 using Template10.Services.NavigationService;
-using ServicesLibrary.DialogServices;
-using ServicesLibrary.TileServices;
+using ListsOfPersons.Helpers.DialogHelper;
+using ListsOfPersons.Helpers.TileHelper;
 using Windows.UI.StartScreen;
 
 namespace ListsOfPersons
@@ -29,12 +29,12 @@ namespace ListsOfPersons
         public App()
         {
             InitializeComponent();
-            SplashFactory = (e) => new ViewsLibrary.Splash(e);
+            SplashFactory = (e) => new Views.Splash(e);
 
             #region app settings
 
             // some settings must be set in app.constructor
-            var settings = SettingsService.Instance;
+            var settings = SettingsHelper.Instance;
             RequestedTheme = settings.AppTheme;
             CacheMaxDuration = settings.CacheMaxDuration;
             ShowShellBackButton = settings.UseShellBackButton;
@@ -48,8 +48,8 @@ namespace ListsOfPersons
             return new ModalDialog
             {
                 DisableBackButtonWhenModal = true,
-                Content = new ViewsLibrary.Shell(service),
-                ModalContent = new ViewsLibrary.Busy(),
+                Content = new Views.Shell(service),
+                ModalContent = new Views.Busy(),
             };
         }
 
@@ -60,19 +60,19 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
             SimpleIoc.Default.Register<AddEditPageViewModel>();
             SimpleIoc.Default.Register<FavoritePageViewModel>();
-            SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
+            SimpleIoc.Default.Register<IDialogHelper, PersonDialogHelper>();
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
-            SimpleIoc.Default.Register<ITileService, PersonTileServices>();
+            SimpleIoc.Default.Register<ITileHelper, PersonTileHelper>();
             SimpleIoc.Default.Register<PersonTileViewViewModel>();
 
             var arg = (LaunchActivatedEventArgs)args;
             string argument = arg.Arguments;
 
             if (!string.IsNullOrEmpty(argument))
-                await NavigationService.NavigateAsync(typeof(ViewsLibrary.AddEditPage), argument);
+                await NavigationService.NavigateAsync(typeof(Views.AddEditPage), argument);
 
             // TODO: add your long-running task here
-            await NavigationService.NavigateAsync(typeof(ViewsLibrary.MasterDetailPage),argument);
+            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage),argument);
         }
 
         public override INavigable ResolveForPage(Page page, NavigationService navigationService)
@@ -81,7 +81,7 @@ namespace ListsOfPersons
                 return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
             else if (page is FavoritePage)
                 return SimpleIoc.Default.GetInstance<FavoritePageViewModel>();
-            else if (page is ViewsLibrary.TileViewPage.PersonTileView)
+            else if (page is Views.TileViewPage.PersonTileView)
                 return SimpleIoc.Default.GetInstance<PersonTileViewViewModel>();
             else if (page is AddEditPage)
                 return SimpleIoc.Default.GetInstance<AddEditPageViewModel>();

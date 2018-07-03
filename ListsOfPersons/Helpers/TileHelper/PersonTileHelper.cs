@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ServicesLibrary.TileServices;
 using Windows.UI.StartScreen;
 using System.Collections.ObjectModel;
 
-namespace ServicesLibrary.TileServices
+namespace ListsOfPersons.Helpers.TileHelper
 {
-    public class PersonTileServices : ITileService
+    public class PersonTileHelper : ITileHelper
     {
         private ObservableCollection<SecondaryTile> tiles = new ObservableCollection<SecondaryTile>();
 

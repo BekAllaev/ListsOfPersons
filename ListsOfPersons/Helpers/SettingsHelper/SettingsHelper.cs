@@ -3,13 +3,13 @@ using Template10.Common;
 using Template10.Utils;
 using Windows.UI.Xaml;
 
-namespace ServicesLibrary.SettingsServices
+namespace ListsOfPersons.Helpers.SettingsHelper
 {
-    public class SettingsService
+    public class SettingsHelper
     {
-        public static SettingsService Instance { get; } = new SettingsService();
+        public static SettingsHelper Instance { get; } = new SettingsHelper();
         Template10.Services.SettingsService.ISettingsHelper _helper;
-        private SettingsService()
+        private SettingsHelper()
         {
             _helper = new Template10.Services.SettingsService.SettingsHelper();
         }
@@ -40,7 +40,7 @@ namespace ServicesLibrary.SettingsServices
             {
                 _helper.Write(nameof(AppTheme), value.ToString());
                 (Window.Current.Content as FrameworkElement).RequestedTheme = value.ToElementTheme();
-                ViewsLibrary.Shell.HamburgerMenu.RefreshStyles(value, true);
+                Views.Shell.HamburgerMenu.RefreshStyles(value, true);
             }
         }
 
@@ -60,7 +60,7 @@ namespace ServicesLibrary.SettingsServices
             set
             {
                 _helper.Write(nameof(ShowHamburgerButton), value);
-                ViewsLibrary.Shell.HamburgerMenu.HamburgerButtonVisibility = value ? Visibility.Visible : Visibility.Collapsed;
+                Views.Shell.HamburgerMenu.HamburgerButtonVisibility = value ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -70,7 +70,7 @@ namespace ServicesLibrary.SettingsServices
             set
             {
                 _helper.Write(nameof(IsFullScreen), value);
-                ViewsLibrary.Shell.HamburgerMenu.IsFullScreen = value;
+                Views.Shell.HamburgerMenu.IsFullScreen = value;
             }
         }
     }
