@@ -9,7 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Template10.Mvvm;
 
-namespace ListsOfPersons.Views
+namespace ViewsLibrary
 {
     public sealed partial class Shell : Page
     {

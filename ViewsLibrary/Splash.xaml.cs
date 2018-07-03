@@ -3,7 +3,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ListsOfPersons.Views
+namespace ViewsLibrary
 {
     public sealed partial class Splash : UserControl
     {

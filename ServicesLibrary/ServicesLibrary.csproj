@@ -136,6 +136,10 @@
       <Project>{356652cd-2b14-477c-8ce7-8e3e010177ee}</Project>
       <Name>TypesLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewsLibrary\ViewsLibrary.csproj">
+      <Project>{656aaeb5-90f8-4fd0-9abd-a03560bd0e73}</Project>
+      <Name>ViewsLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

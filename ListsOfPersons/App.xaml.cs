@@ -9,8 +9,8 @@ using ServicesLibrary.RepositoryService;
 using TypesLibrary.Models;
 using System;
 using System.Linq;
-using ListsOfPersons.Views;
-using ListsOfPersons.ViewModels;
+using ViewModelsLibrary;
+using ViewsLibrary;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Controls;
 using Template10.Services.NavigationService;
@@ -29,7 +29,7 @@ namespace ListsOfPersons
         public App()
         {
             InitializeComponent();
-            SplashFactory = (e) => new Views.Splash(e);
+            SplashFactory = (e) => new ViewsLibrary.Splash(e);
 
             #region app settings
 
@@ -48,8 +48,8 @@ namespace ListsOfPersons
             return new ModalDialog
             {
                 DisableBackButtonWhenModal = true,
-                Content = new Views.Shell(service),
-                ModalContent = new Views.Busy(),
+                Content = new ViewsLibrary.Shell(service),
+                ModalContent = new ViewsLibrary.Busy(),
             };
         }
 
@@ -60,7 +60,7 @@ namespace ListsOfPersons
             SimpleIoc.Default.Register<IRepositoryService<Person>, PersonsRepositoryServiceFake>();
             SimpleIoc.Default.Register<AddEditPageViewModel>();
             SimpleIoc.Default.Register<FavoritePageViewModel>();
-            //SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
+            SimpleIoc.Default.Register<IDialogService, PersonDialogService>();
             SimpleIoc.Default.Register<PersonContentDialogViewModel>();
             SimpleIoc.Default.Register<ITileService, PersonTileServices>();
             SimpleIoc.Default.Register<PersonTileViewViewModel>();
@@ -68,11 +68,11 @@ namespace ListsOfPersons
             var arg = (LaunchActivatedEventArgs)args;
             string argument = arg.Arguments;
 
-            //if (!string.IsNullOrEmpty(argument))
-            //    await NavigationService.NavigateAsync(typeof(Views.AddEditPage), argument);
+            if (!string.IsNullOrEmpty(argument))
+                await NavigationService.NavigateAsync(typeof(ViewsLibrary.AddEditPage), argument);
 
             // TODO: add your long-running task here
-            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage),argument);
+            await NavigationService.NavigateAsync(typeof(ViewsLibrary.MasterDetailPage),argument);
         }
 
         public override INavigable ResolveForPage(Page page, NavigationService navigationService)
@@ -81,7 +81,7 @@ namespace ListsOfPersons
                 return SimpleIoc.Default.GetInstance<MasterDetailPageViewModel>();
             else if (page is FavoritePage)
                 return SimpleIoc.Default.GetInstance<FavoritePageViewModel>();
-            else if (page is Views.TileViewPage.PersonTileView)
+            else if (page is ViewsLibrary.TileViewPage.PersonTileView)
                 return SimpleIoc.Default.GetInstance<PersonTileViewViewModel>();
             else if (page is AddEditPage)
                 return SimpleIoc.Default.GetInstance<AddEditPageViewModel>();

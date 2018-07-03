@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace ListsOfPersons.Views
+namespace ViewsLibrary
 {
     public sealed partial class SettingsPage : Page
     {

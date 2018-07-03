@@ -12,26 +12,26 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using ListsOfPersons.ViewModels;
+using ViewModelsLibrary;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace ListsOfPersons.Views
+namespace ViewsLibrary.TileViewPage
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class FavoritePage : Page
+    public sealed partial class PersonTileView : Page
     {
-        public FavoritePage()
+        public PersonTileView()
         {
             this.InitializeComponent();
         }
 
-        private FavoritePageViewModel _viewModel;
-        public FavoritePageViewModel ViewModel
+        PersonTileViewViewModel _viewModel;
+        public PersonTileViewViewModel ViewModel
         {
-            get { return _viewModel ?? (_viewModel = (FavoritePageViewModel)DataContext); }
+            get { return _viewModel ?? (_viewModel = (PersonTileViewViewModel)DataContext); }
         }
     }
 }

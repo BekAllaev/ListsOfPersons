@@ -1,8 +1,8 @@
-﻿using ListsOfPersons.ViewModels;
+﻿using ViewModelsLibrary;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Controls;
 
-namespace ListsOfPersons.Views
+namespace ViewsLibrary
 {
     public sealed partial class DetailPage : Page
     {

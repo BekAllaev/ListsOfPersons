@@ -16,22 +16,23 @@ using ViewModelsLibrary;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace ListsOfPersons.Views.TileViewPage
+namespace ViewsLibrary
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PersonTileView : Page
+    public sealed partial class AddEditPage : Page
     {
-        public PersonTileView()
+        public AddEditPage()
         {
             this.InitializeComponent();
+            DataContext = ViewModel;
         }
 
-        PersonTileViewViewModel _viewModel;
-        public PersonTileViewViewModel ViewModel
+        AddEditPageViewModel _viewModel;
+        public AddEditPageViewModel ViewModel
         {
-            get { return _viewModel ?? (_viewModel = (PersonTileViewViewModel)DataContext); }
+            get { return _viewModel ?? (_viewModel = (AddEditPageViewModel)DataContext); }
         }
     }
 }
