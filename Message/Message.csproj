@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9DD56756-0CC7-4152-9DF9-1312CB291958}</ProjectGuid>
+    <ProjectGuid>{D0881ACB-8016-48E0-9A6F-1B40A9E2EAB2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RepositoryService</RootNamespace>
-    <AssemblyName>RepositoryService</AssemblyName>
+    <RootNamespace>Message</RootNamespace>
+    <AssemblyName>Message</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
@@ -106,10 +106,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IRepositoryService.cs" />
-    <Compile Include="PersonsRepositoryServiceFake.cs" />
+    <Compile Include="PersonsChangedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\RepositoryService.rd.xml" />
+    <EmbeddedResource Include="Properties\Message.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -118,16 +117,6 @@
     <PackageReference Include="MvvmLight">
       <Version>5.4.1</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DomenModel\DomenModel.csproj">
-      <Project>{b417b368-5bf1-44a2-a00f-2ff83ccb9e79}</Project>
-      <Name>DomenModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Message\Message.csproj">
-      <Project>{d0881acb-8016-48e0-9a6f-1b40a9e2eab2}</Project>
-      <Name>Message</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

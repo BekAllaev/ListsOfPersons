@@ -99,7 +99,7 @@
                 <Setter Property="NavButtonForeground" Value="{ThemeResource SystemColorWindowTextColor}" />
                 <Setter Property="NavAreaBackground" Value="{ThemeResource SystemColorWindowColor}" />
                 <Setter Property="HamburgerForeground" Value="{ThemeResource SystemColorWindowColor}" />
-                <Setter Property="HamburgerBackground" Value="{ThemeResource SystemColorWindowTextColor}" />
+                <Setter Property="HamburgerBackground" Value="Green" />
                 <Setter Property="VisualStateNarrowMinWidth" Value="{ThemeResource NarrowMinWidth}" />
                 <Setter Property="VisualStateNormalMinWidth" Value="{ThemeResource NormalMinWidth}" />
                 <Setter Property="VisualStateWideMinWidth" Value="{ThemeResource WideMinWidth}" />

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DomenModel.Models;
 using GalaSoft.MvvmLight.Messaging;
-using MessagesLibrary;
+using Message;
 
 namespace RepositoryService
 {

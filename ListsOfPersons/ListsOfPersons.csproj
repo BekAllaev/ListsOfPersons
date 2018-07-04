@@ -243,9 +243,9 @@
       <Project>{b417b368-5bf1-44a2-a00f-2ff83ccb9e79}</Project>
       <Name>DomenModel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MessagesLibrary\MessagesLibrary.csproj">
-      <Project>{57dcf1d4-13b1-495b-8e74-bd88ea832349}</Project>
-      <Name>MessagesLibrary</Name>
+    <ProjectReference Include="..\Message\Message.csproj">
+      <Project>{d0881acb-8016-48e0-9a6f-1b40a9e2eab2}</Project>
+      <Name>Message</Name>
     </ProjectReference>
     <ProjectReference Include="..\RepositoryService\RepositoryService.csproj">
       <Project>{9dd56756-0cc7-4152-9df9-1312cb291958}</Project>

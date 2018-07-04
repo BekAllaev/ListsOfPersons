@@ -98,7 +98,7 @@ namespace ListsOfPersons.ViewModels
 
         public Int32[] YearsAmount
         {
-            get { return Counter(1971, 2001); }
+            get { return Counter(1940, 2001); }
         }
         #endregion
 
