@@ -11,9 +11,23 @@ namespace RepositoryService
 {
     public class PersonsRepositoryServiceFake : IRepositoryService<Person>
     {
+        #region Fields
         private List<Person> _persons;
 
         private PersonsChangedMessage message;
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Used in test class process
+        /// Functionality same as list that used in custom class
+        /// </summary>
+        public List<Person> TestList
+        {
+            set { _persons = value; }
+            get { return _persons; }
+        }
+        #endregion
 
         #region Implementation of IRepositoryService
         public async Task AddAsync(Person person)
