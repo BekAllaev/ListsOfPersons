@@ -10,6 +10,7 @@
     xmlns:uwpkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
     <Page.Resources>
         <x:Double x:Key="FieldWidth">400</x:Double>
     </Page.Resources>
