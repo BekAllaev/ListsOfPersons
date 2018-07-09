@@ -1,7 +1,6 @@
 ﻿using RepositoryService;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using DomenModel.Models;
 
