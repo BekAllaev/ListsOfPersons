@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using DomenModel.Models;
 
+
 namespace RepositoryServiceTest
 {
     enum MainCharacteristic { ID, IsFavorite, No }
