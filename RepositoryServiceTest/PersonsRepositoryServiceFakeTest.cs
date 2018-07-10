@@ -6,7 +6,14 @@ using DomenModel.Models;
 
 namespace RepositoryServiceTest
 {
-    enum MainCharacteristic { ID, IsFavorite, No }
+    //The only propertie of the item to be used
+    enum ItemProperty
+    {
+        // All consts except "No" taken from model
+        ID, 
+        IsFavorite, 
+        No // No one prop won`t use
+    } 
 
     [TestClass]
     public class PersonsRepositoryServiceFakeTest
@@ -28,20 +35,20 @@ namespace RepositoryServiceTest
 
             repository.DeleteAsync(personId, 1).Wait();
 
-            Assert.AreNotEqual(repository.TestList.Count, 0);
+            Assert.AreNotEqual(0, repository.TestList.Count);
         }
 
         [TestMethod]
         public void GetAllAsyncTest()
         {
-            List<Person> list = GetRandomList(MainCharacteristic.No);
+            List<Person> list = GetList(ItemProperty.No);
 
             repository.TestList = new List<Person>(list);
 
             List<Person> resultList = repository.GetAllAsync().Result;
 
             //TODO: Talk about what we compare
-            Assert.AreEqual(resultList.Count, Count);
+            Assert.AreEqual(Count, resultList.Count);
         }
 
         [TestMethod]
@@ -51,7 +58,7 @@ namespace RepositoryServiceTest
             {
                 new Person(){IsFavorite=false}
             };
-            list.AddRange(GetRandomList(MainCharacteristic.IsFavorite));
+            list.AddRange(GetList(ItemProperty.IsFavorite));
 
             repository.TestList = new List<Person>(list);
             List<Person> resultList = repository.GetAllFavoriteAsync().Result;
@@ -62,7 +69,7 @@ namespace RepositoryServiceTest
         [TestMethod]
         public void GetByIdTest()
         {
-            List<Person> list = GetRandomList(MainCharacteristic.ID);
+            List<Person> list = GetList(ItemProperty.ID);
             Random random = new Random();
 
             repository.TestList = new List<Person>(list);
@@ -103,21 +110,20 @@ namespace RepositoryServiceTest
         /// <param name = "characteristic">
         /// Characteristic that would be use for comparing,searching etc 
         /// </param>
-        /// <returns></returns>
-        private List<Person> GetRandomList(MainCharacteristic characteristic)
+        private List<Person> GetList(ItemProperty characteristic)
         {
             List<Person> list = new List<Person>();
             switch (characteristic)
             {
-                case MainCharacteristic.No:
+                case ItemProperty.No:
                     for (int i = 0; i < Count; i++)
                         list.Add(new Person());
                     break;
-                case MainCharacteristic.ID:
+                case ItemProperty.ID:
                     for (int i = 0; i < Count; i++)
                         list.Add(new Person() { Id = Guid.NewGuid().ToString() });
                     break;
-                case MainCharacteristic.IsFavorite:
+                case ItemProperty.IsFavorite:
                     for (int i = 0; i < Count; i++)
                         list.Add(new Person() { IsFavorite = true });
                     break;
