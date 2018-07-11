@@ -10,10 +10,10 @@ namespace RepositoryServiceTest
     enum ItemProperty
     {
         // All consts except "No" taken from model
-        ID, 
-        IsFavorite, 
+        ID,
+        IsFavorite,
         No // No one prop won`t use
-    } 
+    }
 
     [TestClass]
     public class PersonsRepositoryServiceFakeTest
@@ -38,8 +38,9 @@ namespace RepositoryServiceTest
             Assert.AreNotEqual(0, repository.TestList.Count);
         }
 
-        [TestMethod]
-        public void GetAllAsyncTest()
+        [DataTestMethod]
+        [DataRow(852)]
+        public void GetAllAsyncTest(int value,int value1)
         {
             List<Person> list = GetList(ItemProperty.No);
 
@@ -48,7 +49,7 @@ namespace RepositoryServiceTest
             List<Person> resultList = repository.GetAllAsync().Result;
 
             //TODO: Talk about what we compare
-            Assert.AreEqual(Count, resultList.Count);
+            Assert.AreEqual(value, resultList.Count);
         }
 
         [TestMethod]
@@ -108,7 +109,7 @@ namespace RepositoryServiceTest
         /// Generate new List 
         /// </summary>
         /// <param name = "characteristic">
-        /// Characteristic that would be use for comparing,searching etc 
+        /// Property that will use for comparing,searching etc 
         /// </param>
         private List<Person> GetList(ItemProperty characteristic)
         {
@@ -130,5 +131,5 @@ namespace RepositoryServiceTest
             }
             return list;
         }
-    }
+}
 }
