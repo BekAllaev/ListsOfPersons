@@ -18,10 +18,13 @@ namespace RepositoryServiceTest
     [TestClass]
     public class PersonsRepositoryServiceFakeTest
     {
-        PersonsRepositoryServiceFake repository = new PersonsRepositoryServiceFake();
+        PersonsRepositoryServiceFake repository = new PersonsRepositoryServiceFake(); // Used for evoke method that under testing.
 
-        const int Count = 1000;
+        const int Count = 1000; //Count of items in each collection of this class
 
+        /// <summary>
+        /// Test business logic - that not remove last item of collection.
+        /// </summary>
         [TestMethod]
         public void NotRemoveIfOneRemainPerson()
         {
@@ -31,7 +34,7 @@ namespace RepositoryServiceTest
             };
             repository.TestList = new List<Person>(list);
 
-            var personId = list[0].Id;
+            string personId = list[0].Id;
 
             repository.DeleteAsync(personId, 1).Wait();
 
@@ -39,27 +42,23 @@ namespace RepositoryServiceTest
         }
 
         [DataTestMethod]
-        [DataRow(852)]
-        public void GetAllAsyncTest(int value,int value1)
+        [DataRow(Count)]
+        public void GetAllAsyncTest(int count)
         {
-            List<Person> list = GetList(ItemProperty.No);
+            List<Person> list = GetList(ItemProperty.No,count);
 
             repository.TestList = new List<Person>(list);
 
             List<Person> resultList = repository.GetAllAsync().Result;
 
             //TODO: Talk about what we compare
-            Assert.AreEqual(value, resultList.Count);
+            Assert.AreEqual(count, resultList.Count);
         }
 
-        [TestMethod]
+        [DataTestMethod]
         public void GetAllFavoriteTest()
         {
-            List<Person> list = new List<Person>()
-            {
-                new Person(){IsFavorite=false}
-            };
-            list.AddRange(GetList(ItemProperty.IsFavorite));
+            List<Person> list = GetList(ItemProperty.IsFavorite,Count);
 
             repository.TestList = new List<Person>(list);
             List<Person> resultList = repository.GetAllFavoriteAsync().Result;
@@ -70,7 +69,7 @@ namespace RepositoryServiceTest
         [TestMethod]
         public void GetByIdTest()
         {
-            List<Person> list = GetList(ItemProperty.ID);
+            List<Person> list = GetList(ItemProperty.ID,Count);
             Random random = new Random();
 
             repository.TestList = new List<Person>(list);
@@ -111,25 +110,31 @@ namespace RepositoryServiceTest
         /// <param name = "characteristic">
         /// Property that will use for comparing,searching etc 
         /// </param>
-        private List<Person> GetList(ItemProperty characteristic)
+        /// <param name="itemsCount">
+        /// Count of items in list
+        /// </param>
+        private List<Person> GetList(ItemProperty characteristic, int itemsCount)
         {
             List<Person> list = new List<Person>();
+
             switch (characteristic)
             {
                 case ItemProperty.No:
-                    for (int i = 0; i < Count; i++)
+                    for (int i = 0; i < itemsCount; i++)
                         list.Add(new Person());
-                    break;
+                    return list;
                 case ItemProperty.ID:
-                    for (int i = 0; i < Count; i++)
+                    for (int i = 0; i < itemsCount; i++)
                         list.Add(new Person() { Id = Guid.NewGuid().ToString() });
-                    break;
+                    return list;
                 case ItemProperty.IsFavorite:
-                    for (int i = 0; i < Count; i++)
+                    list.Add(new Person() { IsFavorite = false });
+                    for (int i = 0; i < itemsCount; i++)
                         list.Add(new Person() { IsFavorite = true });
-                    break;
+                    return list;
+                default:
+                    throw new Exception("Check parameter");
             }
-            return list;
         }
-}
+    }
 }
