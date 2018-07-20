@@ -7,7 +7,8 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     mc:Ignorable="d"
     Title="{x:Bind ViewModel.FullName}"
-    PrimaryButtonText="Submit">
+    PrimaryButtonText="Submit"
+    SecondaryButtonText="Next">
     
     <RelativePanel RenderTransformOrigin="0.5,0.5">
         <RelativePanel.ChildrenTransitions>
