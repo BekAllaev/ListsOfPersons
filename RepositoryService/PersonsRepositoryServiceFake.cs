@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DomenModel.Models;
 using GalaSoft.MvvmLight.Messaging;
 using Message;
+using Windows.Graphics.Imaging;
 
 namespace RepositoryService
 {
@@ -109,29 +110,34 @@ namespace RepositoryService
         }
         #endregion
 
+        //#region Methods of class
+        //private 
+
+        //#endregion
+
         #region Read/Write
         private async Task<List<Person>> ReadPersonsAsync()
         {
             return await Task.Run(() => _persons = new List<Person>
             {
-                new Person{Id=Guid.NewGuid().ToString(), Name="Веста",LastName="Буркот",Email="vesta.burkot@mail.com", IsFavorite=true, DateOfBirth=new DateTime(1988,7,1),
+                new Person{Id=Guid.NewGuid().ToString(), Name="Илон",LastName="Маск",Email="Ilon.mask@mail.com", IsFavorite=true, DateOfBirth=new DateTime(1988,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage = new Uri("http://100portraits.ru/wp-content/uploads/2017/08/Vesta_100Portraits-04.jpg")},
-                new Person{Id=Guid.NewGuid().ToString(), Name="Андрей",LastName="Альтов",Email="andrey.altov@mail.com", IsFavorite=false,DateOfBirth=new DateTime(1950,7,1),
+                    PathToImage = new Uri("https://img3.eadaily.com/r650x400/o/2bf/314a320b25e137426740bea048d9e.jpg")},
+                new Person{Id=Guid.NewGuid().ToString(), Name="Лев",LastName="Яшин",Email="Lev.Yashin@mail.com", IsFavorite=false,DateOfBirth=new DateTime(1950,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage =new Uri ("http://100portraits.ru/wp-content/uploads/2017/05/Tatyana_Makarova-01.jpg")},
-                new Person{Id=Guid.NewGuid().ToString(), Name="Ксения",LastName="Берелет",Email="ksenia.berelet@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1998,7,1),
+                    PathToImage =new Uri ("https://secrethistory.su/uploads/posts/2014-02/1391712110_lev-yashin.jpg")},
+                new Person{Id=Guid.NewGuid().ToString(), Name="Кристиан",LastName="Стюарт",Email="Kristen.stewart@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1998,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage = new Uri ("http://100portraits.ru/wp-content/uploads/2017/08/Kseniya_Berelet_09w.jpg")},
-                new Person{Id=Guid.NewGuid().ToString(), Name="Маргарита",LastName="Бабкина",Email="margarite.babkina@mail.com", IsFavorite=false,DateOfBirth=new DateTime(1998,7,1),
+                    PathToImage = new Uri ("https://my-hit.org/storage/1875060_500x800x250.jpg")},
+                new Person{Id=Guid.NewGuid().ToString(), Name="Райан",LastName="Гослинг",Email="Ryan.gosling@mail.com", IsFavorite=false,DateOfBirth=new DateTime(1998,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage =new Uri("http://100portraits.ru/wp-content/uploads/2017/08/Margarita_100Portraits-16.jpg")},
-                new Person{Id=Guid.NewGuid().ToString(), Name="Владимир", LastName="Тюрин", Email="vladimir.turin@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1990,7,1),
+                    PathToImage =new Uri("http://games-of-thrones.ru/sites/default/files/pictures/all/gosling/31.jpg")},
+                new Person{Id=Guid.NewGuid().ToString(), Name="Том", LastName="Хидделстон", Email="Tom.hiddleston@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1990,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage =new Uri("http://100portraits.ru/wp-content/uploads/2017/08/Vladimir_100Portraits-06.jpg") },
-                new Person{Id=Guid.NewGuid().ToString(), Name="Дарья",LastName="Митичашвили",Email="daria.michiashvili2@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1998,7,1),
+                    PathToImage =new Uri("http://www.livestory.com.ua/images//Tom_Hiddlston_25.jpg") },
+                new Person{Id=Guid.NewGuid().ToString(), Name="Килиан",LastName="Мёрфи",Email="Cilian.murphy@mail.com", IsFavorite=true,DateOfBirth=new DateTime(1998,7,1),
                     Notes ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pharetra dictum nibh vel ornare. Donec sem urna, rhoncus sed cursus ac, aliquet at nisl. Pellentesque cursus et lacus vel porta. Morbi iaculis efficitur volutpat. Curabitur sit amet cursus nisl, ac suscipit mauris. Nulla a tellus a odio tincidunt maximus. Maecenas non eros lacus. Donec aliquam libero nec ex ullamcorper, in lobortis nibh dapibus. Mauris vehicula, tellus quis congue tincidunt, neque massa auctor ante, ut laoreet felis nisi id tellus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nunc sed dapibus quam, in viverra arcu. Vivamus ut metus non magna viverra porttitor a ultrices dui.",
-                    PathToImage =new Uri("http://100portraits.ru/wp-content/uploads/2017/08/Darya_Mitichashvili_06w.jpg")}
+                    PathToImage =new Uri("https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Cillian_Murphy_2014_cropped.jpg/1200px-Cillian_Murphy_2014_cropped.jpg")}
             });
         }
 

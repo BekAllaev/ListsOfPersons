@@ -38,7 +38,8 @@
                                     Width="200"
                                     BorderBrush="Orange"
                                     BorderThickness="2"
-                                    CornerRadius="10"/>
+                                    CornerRadius="10"
+                                    Stretch="Fill"/>
                             <uwpkit:HeaderedTextBlock Margin="5" HorizontalAlignment="Center" Header="Email" FontSize="25"
                                                   Text="{Binding Email}"/>
                         </StackPanel>

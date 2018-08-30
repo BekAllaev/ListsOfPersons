@@ -7,8 +7,7 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" 
     mc:Ignorable="d"
     Title="{x:Bind ViewModel.FullName}"
-    PrimaryButtonText="Submit"
-    SecondaryButtonText="Next">
+    PrimaryButtonText="Submit">
     
     <RelativePanel RenderTransformOrigin="0.5,0.5">
         <RelativePanel.ChildrenTransitions>
@@ -17,7 +16,12 @@
             </TransitionCollection>
         </RelativePanel.ChildrenTransitions>
         <ToggleSwitch x:Name="Switcher" IsOn="{x:Bind ViewModel.SelectedPerson.IsFavorite,Mode=TwoWay}" Header="Is favorite" OnContent="Yes" OffContent="Off" RelativePanel.AlignRightWithPanel="True" Margin="0,0,-40,0"/>
-        <controls:ImageEx x:Name="Image" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignRightWithPanel="True" Height="260" Source="{x:Bind ViewModel.SelectedPerson.PathToImage}" RelativePanel.Below="Switcher"/>
+        <controls:ImageEx x:Name="Image" 
+                          RelativePanel.AlignLeftWithPanel="True" 
+                          RelativePanel.AlignRightWithPanel="True" 
+                          Height="260" 
+                          Source="{x:Bind ViewModel.SelectedPerson.PathToImage}" 
+                          RelativePanel.Below="Switcher"/>
         <ScrollViewer RelativePanel.Below="Image">
             <TextBlock TextWrapping="Wrap" Text="{x:Bind ViewModel.SelectedPerson.Notes}"/>
         </ScrollViewer>

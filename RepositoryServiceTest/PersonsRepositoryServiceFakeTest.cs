@@ -42,6 +42,7 @@ namespace RepositoryServiceTest
         }
 
         [DataTestMethod]
+        [TestCategory("Param method")]
         [DataRow(Count)]
         public void GetAllAsyncTest(int count)
         {
