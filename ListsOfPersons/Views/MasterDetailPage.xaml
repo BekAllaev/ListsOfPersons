@@ -86,7 +86,7 @@
                                 <TextBlock FontSize="32" Text="{Binding LastName}" FontWeight="Bold"/>
                             </StackPanel>
                             <uwpkit:RoundImageEx Height="360" Width="360" Source="{Binding PathToImage}"
-                                          Stretch="UniformToFill" 
+                                          Stretch="Fill" 
                                           IsCacheEnabled="True"
                                           CornerRadius="4" 
                                           BorderThickness="1" BorderBrush="DimGray" 
