@@ -9,9 +9,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:views="using:ListsOfPersons.Views"
       mc:Ignorable="d">
-
+    
     <Controls:HamburgerMenu HamburgerBackground="Green" x:Name="MyHamburgerMenu">
-
         <Controls:HamburgerMenu.PrimaryButtons>
             <!--  mainpage button  -->
             <Controls:HamburgerButtonInfo ClearHistory="True" PageType="views:MasterDetailPage">
@@ -54,7 +53,5 @@
                 </StackPanel>
             </Controls:HamburgerButtonInfo>
         </Controls:HamburgerMenu.SecondaryButtons>
-
     </Controls:HamburgerMenu>
-
 </Page>
