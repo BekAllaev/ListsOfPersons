@@ -135,6 +135,45 @@ namespace ListsOfPersons.ViewModels
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            //WithoutCache(parameter); //Do not store cache 
+
+            await WithCaching(parameter); //Store cache 
+
+            await Task.CompletedTask;
+        }
+
+        public override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
+        {
+            if (!IsCanceling && CurrentState == States.Add)
+                RawAddingPerson = TempPerson;
+            else if (!IsCanceling && CurrentState == States.Edit)
+                RawEditingPerson = TempPerson;
+
+            return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region ViewModel methods
+        private void WithoutCache(object parameter)
+        {
+            SetTempPerson(parameter);
+
+            if (parameter == null)
+            {
+                CurrentState = States.Add;
+                Title = "Adding new item";
+            }
+            else
+            {
+                CurrentState = States.Edit;
+                Title = $"Editing {TempPerson.FullName}";
+            }
+
+        }
+
+        public async Task WithCaching(object parameter)
+        {
             ContentDialogResult result = ContentDialogResult.None;
 
             ContentDialog contentDialog = new ContentDialog()
@@ -161,23 +200,8 @@ namespace ListsOfPersons.ViewModels
                 TempPerson = RawEditingPerson;
             else
                 Main(parameter);
-
-            await Task.CompletedTask;
         }
 
-        public override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
-        {
-            if (!IsCanceling && CurrentState == States.Add)
-                RawAddingPerson = TempPerson;
-            else if (!IsCanceling && CurrentState == States.Edit)
-                RawEditingPerson = TempPerson;
-
-            return Task.CompletedTask;
-        }
-
-        #endregion
-
-        #region ViewModel methods
         private void Main(object parameter)
         {
             if (parameter == null)
