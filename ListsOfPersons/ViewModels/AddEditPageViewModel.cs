@@ -9,6 +9,7 @@ using Template10.Mvvm;
 using Windows.UI.Xaml.Navigation;
 using RepositoryService;
 using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Controls;
 
 namespace ListsOfPersons.ViewModels
 {
@@ -20,7 +21,7 @@ namespace ListsOfPersons.ViewModels
         PersonProxy proxyPerson;
         IRepositoryService<Person> PersonsRepositary;
         enum States { Edit, Add };
-        States CurrentState;
+        States? CurrentState = null;
         #endregion
 
         #region Constructor
@@ -33,7 +34,9 @@ namespace ListsOfPersons.ViewModels
         #region ViewModel properties
         private bool IsCanceling { set; get; } //Flag that shows was view canceled by clicking CANCEL button or not
 
-        private PersonProxy RawPerson { set; get; } //Person that was in process of add operation
+        private PersonProxy RawEditingPerson { set; get; } //Person that was in process of edit operation
+
+        private PersonProxy RawAddingPerson { set; get; } //Person that was in process of add operation
         #endregion
 
         #region Bindable properties
@@ -132,59 +135,106 @@ namespace ListsOfPersons.ViewModels
         #region Navigation events
         public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
-            if (!IsCanceling && RawPerson != null)
-                TempPerson = RawPerson;
+            ContentDialogResult result = ContentDialogResult.None;
+
+            ContentDialog contentDialog = new ContentDialog()
+            {
+                Title = "Note",
+                PrimaryButtonText = "Yes",
+                SecondaryButtonText = "No"
+            };
+
+            if (CurrentState == States.Add && parameter != null && !IsCanceling)
+            {
+                contentDialog.Content = "You were adding new person, do you want to continue?";
+                result = await contentDialog.ShowAsync();
+            }
+            else if (CurrentState == States.Edit && parameter == null && !IsCanceling)
+            {
+                contentDialog.Content = $"You were editing {currentPerson.Name} {currentPerson.LastName}, do you want to continue?";
+                result = await contentDialog.ShowAsync();
+            }
+
+            if (result == ContentDialogResult.Primary && CurrentState == States.Add)
+                TempPerson = RawAddingPerson;
+            else if (result == ContentDialogResult.Primary)
+                TempPerson = RawEditingPerson;
             else
-            {
-                currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
-
-                var temp = new PersonProxy(currentPerson)
-                {
-                    Name = currentPerson.Name,
-                    LastName = currentPerson.LastName,
-                    Email = currentPerson.Email,
-                    DateOfBirth = currentPerson.DateOfBirth,
-                    Validator = i =>
-                    {
-                        var u = i as PersonProxy;
-                        if (string.IsNullOrEmpty(u.Name))
-                            u.Properties[nameof(u.Name)].Errors.Add("FirstName is required");
-                        else if (u.Name.Length < 3)
-                            u.Properties[nameof(u.Name)].Errors.Add("FirstName must be more then 3 symbols");
-                        if (string.IsNullOrEmpty(u.LastName))
-                            u.Properties[nameof(u.LastName)].Errors.Add("FirstName is required");
-                        if (string.IsNullOrEmpty(u.Email))
-                            u.Properties[nameof(u.Email)].Errors.Add("Email is required");
-                        else if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(u.Email))
-                            u.Properties[nameof(u.Email)].Errors.Add("Must consist . and @");
-                    }
-                };
-                TempPerson = temp;
-                TempPerson.Validate();
-
-                IsCanceling = false; //Set default value
-            }
-
-            if (parameter == null)
-            {
-                CurrentState = States.Add;
-                Title = "Adding new item";
-            }
-            else
-            {
-                CurrentState = States.Edit;
-                Title = $"Editing {TempPerson.FullName}";
-            }
+                Main(parameter);
 
             await Task.CompletedTask;
         }
 
         public override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
-            if (!IsCanceling)
-                RawPerson = TempPerson;
+            if (!IsCanceling && CurrentState == States.Add)
+                RawAddingPerson = TempPerson;
+            else if (!IsCanceling && CurrentState == States.Edit)
+                RawEditingPerson = TempPerson;
 
             return Task.CompletedTask;
+        }
+
+        #endregion
+
+        #region ViewModel methods
+        private void Main(object parameter)
+        {
+            if (parameter == null)
+            {
+                if (!IsCanceling && RawAddingPerson != null)
+                    TempPerson = RawAddingPerson;
+                else
+                {
+                    SetTempPerson(parameter);
+                    IsCanceling = false; //Set default value
+                }
+
+                CurrentState = States.Add;
+                Title = "Adding new item";
+            }
+            else
+            {
+                if (!IsCanceling && RawEditingPerson != null && currentPerson.Id == (parameter as Person).Id)
+                    TempPerson = RawEditingPerson;
+                else
+                {
+                    SetTempPerson(parameter);
+                    IsCanceling = false; //Set default value
+                }
+
+                CurrentState = States.Edit;
+                Title = $"Editing {TempPerson.FullName}";
+            }
+        }
+
+        private void SetTempPerson(object person)
+        {
+            currentPerson = person == null ? new Person() { Id = Guid.NewGuid().ToString() } : person as Person;
+
+            var temp = new PersonProxy(currentPerson)
+            {
+                Name = currentPerson.Name,
+                LastName = currentPerson.LastName,
+                Email = currentPerson.Email,
+                DateOfBirth = currentPerson.DateOfBirth,
+                Validator = i =>
+                {
+                    var u = i as PersonProxy;
+                    if (string.IsNullOrEmpty(u.Name))
+                        u.Properties[nameof(u.Name)].Errors.Add("FirstName is required");
+                    else if (u.Name.Length < 3)
+                        u.Properties[nameof(u.Name)].Errors.Add("FirstName must be more then 3 symbols");
+                    if (string.IsNullOrEmpty(u.LastName))
+                        u.Properties[nameof(u.LastName)].Errors.Add("FirstName is required");
+                    if (string.IsNullOrEmpty(u.Email))
+                        u.Properties[nameof(u.Email)].Errors.Add("Email is required");
+                    else if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(u.Email))
+                        u.Properties[nameof(u.Email)].Errors.Add("Must consist . and @");
+                }
+            };
+            TempPerson = temp;
+            TempPerson.Validate();
         }
         #endregion
 
