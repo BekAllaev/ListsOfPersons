@@ -153,22 +153,28 @@ namespace ListsOfPersons.ViewModels
                 SecondaryButtonText = "No"
             };
 
-            if (TempPerson.IsDirty)
-                if (CurrentState == States.Add && !IsCanceling)
+            if (TempPerson.IsDirty && !IsCanceling)
+            {
+                TempPerson.MarkAsClean();
+                var t = TempPerson;
+
+                if (CurrentState == States.Add)
                 {
                     contentDialog.Content = "You were adding new person, do you want to save changes?";
                     result = await contentDialog.ShowAsync();
                 }
-                else if (CurrentState == States.Edit && !IsCanceling)
+                else if (CurrentState == States.Edit)
                 {
                     contentDialog.Content = $"You were editing {currentPerson.Name} {currentPerson.LastName}, do you want to save changes?";
                     result = await contentDialog.ShowAsync();
                 }
+            }
 
-            if (result == ContentDialogResult.Primary && CurrentState == States.Add)
-                RawAddingPerson = TempPerson;
-            else if (result == ContentDialogResult.Primary && CurrentState == States.Edit)
-                RawEditingPerson = TempPerson;
+            if (result == ContentDialogResult.Primary)
+                if (CurrentState == States.Add)
+                    RawAddingPerson = TempPerson;
+                else if (CurrentState == States.Edit)
+                    RawEditingPerson = TempPerson;
         }
 
         #endregion
