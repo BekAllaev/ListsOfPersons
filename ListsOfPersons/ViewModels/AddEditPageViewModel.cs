@@ -137,19 +137,38 @@ namespace ListsOfPersons.ViewModels
         {
             //WithoutCache(parameter); //Do not store cache 
 
-            await WithCaching(parameter); //Store cache 
+            WithCaching(parameter); //Store cache 
 
             await Task.CompletedTask;
         }
 
-        public override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
+        public async override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
         {
-            if (!IsCanceling && CurrentState == States.Add)
-                RawAddingPerson = TempPerson;
-            else if (!IsCanceling && CurrentState == States.Edit)
-                RawEditingPerson = TempPerson;
+            ContentDialogResult result = ContentDialogResult.None;
 
-            return Task.CompletedTask;
+            ContentDialog contentDialog = new ContentDialog()
+            {
+                Title = "Note",
+                PrimaryButtonText = "Yes",
+                SecondaryButtonText = "No"
+            };
+
+            if (TempPerson.IsDirty)
+                if (CurrentState == States.Add && !IsCanceling)
+                {
+                    contentDialog.Content = "You were adding new person, do you want to save changes?";
+                    result = await contentDialog.ShowAsync();
+                }
+                else if (CurrentState == States.Edit && !IsCanceling)
+                {
+                    contentDialog.Content = $"You were editing {currentPerson.Name} {currentPerson.LastName}, do you want to save changes?";
+                    result = await contentDialog.ShowAsync();
+                }
+
+            if (result == ContentDialogResult.Primary && CurrentState == States.Add)
+                RawAddingPerson = TempPerson;
+            else if (result == ContentDialogResult.Primary && CurrentState == States.Edit)
+                RawEditingPerson = TempPerson;
         }
 
         #endregion
@@ -172,37 +191,7 @@ namespace ListsOfPersons.ViewModels
 
         }
 
-        public async Task WithCaching(object parameter)
-        {
-            ContentDialogResult result = ContentDialogResult.None;
-
-            ContentDialog contentDialog = new ContentDialog()
-            {
-                Title = "Note",
-                PrimaryButtonText = "Yes",
-                SecondaryButtonText = "No"
-            };
-
-            if (CurrentState == States.Add && parameter != null && !IsCanceling)
-            {
-                contentDialog.Content = "You were adding new person, do you want to continue?";
-                result = await contentDialog.ShowAsync();
-            }
-            else if (CurrentState == States.Edit && parameter == null && !IsCanceling)
-            {
-                contentDialog.Content = $"You were editing {currentPerson.Name} {currentPerson.LastName}, do you want to continue?";
-                result = await contentDialog.ShowAsync();
-            }
-
-            if (result == ContentDialogResult.Primary && CurrentState == States.Add)
-                TempPerson = RawAddingPerson;
-            else if (result == ContentDialogResult.Primary)
-                TempPerson = RawEditingPerson;
-            else
-                Main(parameter);
-        }
-
-        private void Main(object parameter)
+        public void WithCaching(object parameter)
         {
             if (parameter == null)
             {
@@ -284,6 +273,8 @@ namespace ListsOfPersons.ViewModels
                 await PersonsRepositary.UpdateAsync(currentPerson);
 
             await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
+
+            IsCanceling = true;
         }
         #endregion
     }
