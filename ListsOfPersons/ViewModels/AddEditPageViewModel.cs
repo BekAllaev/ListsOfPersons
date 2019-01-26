@@ -21,7 +21,7 @@ namespace ListsOfPersons.ViewModels
         PersonProxy proxyPerson;
         IRepositoryService<Person> PersonsRepositary;
         enum States { Edit, Add };
-        States? CurrentState = null;
+        States CurrentState;
         #endregion
 
         #region Constructor
@@ -36,7 +36,19 @@ namespace ListsOfPersons.ViewModels
 
         private PersonProxy RawEditingPerson { set; get; } //Person that was in process of edit operation
 
-        private PersonProxy RawAddingPerson { set; get; } //Person that was in process of add operation
+        PersonProxy _rawAddingPerson;
+        private PersonProxy RawAddingPerson {
+            set
+            {
+                ContentDialog dialog = new ContentDialog()
+                {
+                    Title="Setter",
+                    Content="setted",
+                    PrimaryButtonText="OK"
+                };
+                dialog.ShowAsync().AsTask();
+                _rawAddingPerson = value;
+            } get { return _rawAddingPerson; } } //Person that was in process of add operation
         #endregion
 
         #region Bindable properties
@@ -156,7 +168,6 @@ namespace ListsOfPersons.ViewModels
             if (TempPerson.IsDirty && !IsCanceling)
             {
                 TempPerson.MarkAsClean();
-                var t = TempPerson;
 
                 if (CurrentState == States.Add)
                 {
@@ -176,7 +187,6 @@ namespace ListsOfPersons.ViewModels
                 else if (CurrentState == States.Edit)
                     RawEditingPerson = TempPerson;
         }
-
         #endregion
 
         #region ViewModel methods
@@ -278,9 +288,9 @@ namespace ListsOfPersons.ViewModels
             else if (CurrentState == States.Edit)
                 await PersonsRepositary.UpdateAsync(currentPerson);
 
-            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
-
             IsCanceling = true;
+
+            await NavigationService.NavigateAsync(typeof(Views.MasterDetailPage));
         }
         #endregion
     }

@@ -26,7 +26,6 @@ namespace ListsOfPersons.Views
         public AddEditPage()
         {
             this.InitializeComponent();
-            NavigationCacheMode = NavigationCacheMode.Enabled;
             DataContext = ViewModel;
         }
 

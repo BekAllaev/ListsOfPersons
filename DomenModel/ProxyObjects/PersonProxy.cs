@@ -16,7 +16,6 @@ namespace DomenModel.ProxyObjects
             if (person == null)
                 return;
             Name = person.Name;
-            Id = person.Id;
             LastName = person.LastName;
             Email = person.Email;
             Notes = person.Notes;
@@ -32,13 +31,6 @@ namespace DomenModel.ProxyObjects
             set { Write<string>(value); }
             get { return Read<string>(); }
         }
-
-        public string Id
-        {
-            set { Write<string>(value); }
-            get { return Read<string>(); }
-        }
-
 
         public string LastName
         {
