@@ -36,19 +36,7 @@ namespace ListsOfPersons.ViewModels
 
         private PersonProxy RawEditingPerson { set; get; } //Person that was in process of edit operation
 
-        PersonProxy _rawAddingPerson;
-        private PersonProxy RawAddingPerson {
-            set
-            {
-                ContentDialog dialog = new ContentDialog()
-                {
-                    Title="Setter",
-                    Content="setted",
-                    PrimaryButtonText="OK"
-                };
-                dialog.ShowAsync().AsTask();
-                _rawAddingPerson = value;
-            } get { return _rawAddingPerson; } } //Person that was in process of add operation
+        private PersonProxy RawAddingPerson { set; get; } //Person that was in process of add operation
         #endregion
 
         #region Bindable properties
