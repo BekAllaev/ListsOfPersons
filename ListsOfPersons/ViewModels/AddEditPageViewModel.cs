@@ -188,6 +188,17 @@ namespace ListsOfPersons.ViewModels
 
             return Task.CompletedTask;
         }
+
+        public override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
+        {
+            if (IsCanceling)
+            {
+                IsCanceling = false;
+                TempPerson = null;
+            }
+
+            return Task.CompletedTask;
+        }
         #endregion
 
         #region Navigation tasks
