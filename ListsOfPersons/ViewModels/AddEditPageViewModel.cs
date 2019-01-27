@@ -32,11 +32,7 @@ namespace ListsOfPersons.ViewModels
         #endregion
 
         #region ViewModel properties
-        private bool IsCanceling { set; get; } //Flag that shows was view canceled by clicking CANCEL button or not
-
-        private PersonProxy RawEditingPerson { set; get; } //Person that was in process of edit operation
-
-        private PersonProxy RawAddingPerson { set; get; } //Person that was in process of add operation
+        private bool IsCanceling { set; get; } //Flag that shows was view canceled by clicking CANCEL or SAVE button or not
         #endregion
 
         #region Bindable properties
@@ -133,101 +129,26 @@ namespace ListsOfPersons.ViewModels
         #endregion
 
         #region Navigation events
-        public async override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
-        {
-            //WithoutCache(parameter); //Do not store cache 
-
-            WithCaching(parameter); //Store cache 
-
-            await Task.CompletedTask;
-        }
-
-        public async override Task OnNavigatedFromAsync(IDictionary<string, object> pageState, bool suspending)
-        {
-            ContentDialogResult result = ContentDialogResult.None;
-
-            ContentDialog contentDialog = new ContentDialog()
-            {
-                Title = "Note",
-                PrimaryButtonText = "Yes",
-                SecondaryButtonText = "No"
-            };
-
-            if (TempPerson.IsDirty && !IsCanceling)
-            {
-                TempPerson.MarkAsClean();
-
-                if (CurrentState == States.Add)
-                {
-                    contentDialog.Content = "You were adding new person, do you want to save changes?";
-                    result = await contentDialog.ShowAsync();
-                }
-                else if (CurrentState == States.Edit)
-                {
-                    contentDialog.Content = $"You were editing {currentPerson.Name} {currentPerson.LastName}, do you want to save changes?";
-                    result = await contentDialog.ShowAsync();
-                }
-            }
-
-            if (result == ContentDialogResult.Primary)
-                if (CurrentState == States.Add)
-                    RawAddingPerson = TempPerson;
-                else if (CurrentState == States.Edit)
-                    RawEditingPerson = TempPerson;
-        }
-        #endregion
-
-        #region ViewModel methods
-        private void WithoutCache(object parameter)
-        {
-            SetTempPerson(parameter);
-
-            if (parameter == null)
-            {
-                CurrentState = States.Add;
-                Title = "Adding new item";
-            }
-            else
-            {
-                CurrentState = States.Edit;
-                Title = $"Editing {TempPerson.FullName}";
-            }
-
-        }
-
-        public void WithCaching(object parameter)
+        public override Task OnNavigatedToAsync(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             if (parameter == null)
             {
-                if (!IsCanceling && RawAddingPerson != null)
-                    TempPerson = RawAddingPerson;
-                else
-                {
-                    SetTempPerson(parameter);
-                    IsCanceling = false; //Set default value
-                }
+                if (CurrentState == States.Edit)
+                    TempPerson = null;
 
-                CurrentState = States.Add;
-                Title = "Adding new item";
+                if (TempPerson != null)
+                    return Task.CompletedTask;
             }
             else
             {
-                if (!IsCanceling && RawEditingPerson != null && currentPerson.Id == (parameter as Person).Id)
-                    TempPerson = RawEditingPerson;
-                else
-                {
-                    SetTempPerson(parameter);
-                    IsCanceling = false; //Set default value
-                }
+                if (CurrentState == States.Add)
+                    TempPerson = null;
 
-                CurrentState = States.Edit;
-                Title = $"Editing {TempPerson.FullName}";
+                if (currentPerson != null && currentPerson.Id == (parameter as Person).Id)
+                    return Task.CompletedTask;
             }
-        }
 
-        private void SetTempPerson(object person)
-        {
-            currentPerson = person == null ? new Person() { Id = Guid.NewGuid().ToString() } : person as Person;
+            currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
 
             var temp = new PersonProxy(currentPerson)
             {
@@ -252,6 +173,20 @@ namespace ListsOfPersons.ViewModels
             };
             TempPerson = temp;
             TempPerson.Validate();
+
+
+            if (parameter == null)
+            {
+                CurrentState = States.Add;
+                Title = "Adding new person";
+            }
+            else
+            {
+                CurrentState = States.Edit;
+                Title = $"Editing {TempPerson.FullName}";
+            }
+
+            return Task.CompletedTask;
         }
         #endregion
 
