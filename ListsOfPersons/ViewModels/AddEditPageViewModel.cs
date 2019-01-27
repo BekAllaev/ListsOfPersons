@@ -33,6 +33,8 @@ namespace ListsOfPersons.ViewModels
 
         #region ViewModel properties
         private bool IsCanceling { set; get; } //Flag that shows was view canceled by clicking CANCEL or SAVE button or not
+
+        //PersonProxy CachedPerson { set; get; } // Cached after add or edit operation
         #endregion
 
         #region Bindable properties
@@ -144,8 +146,9 @@ namespace ListsOfPersons.ViewModels
                 if (CurrentState == States.Add)
                     TempPerson = null;
 
-                if (currentPerson != null && currentPerson.Id == (parameter as Person).Id)
-                    return Task.CompletedTask;
+                if (TempPerson != null)
+                    if (currentPerson != null && currentPerson.Id == (parameter as Person).Id)
+                        return Task.CompletedTask;
             }
 
             currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
