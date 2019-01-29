@@ -34,7 +34,11 @@ namespace ListsOfPersons.ViewModels
         #region ViewModel properties
         private bool IsCanceling { set; get; } //Flag that shows was view canceled by clicking CANCEL or SAVE button or not
 
-        //PersonProxy CachedPerson { set; get; } // Cached after add or edit operation
+        PersonProxy CachedAddingPerson { set; get; } // Cached after suspended add operation
+
+        PersonProxy CachedEditingPerson { set; get; } // Cached after suspended edit operation
+
+        string CahcedID { set; get; } // Идентификатор последней персоны Edit операции
         #endregion
 
         #region Bindable properties
@@ -135,20 +139,40 @@ namespace ListsOfPersons.ViewModels
         {
             if (parameter == null)
             {
-                if (CurrentState == States.Edit)
-                    TempPerson = null;
+                if (CachedAddingPerson != null)
+                {
+                    if (CurrentState == States.Edit)
+                    {
+                        Title = "Adding new person";
+                        CurrentState = States.Add;
+                        TempPerson = CachedAddingPerson;
+                    }
 
-                if (TempPerson != null)
+                    //TempPerson.MarkAsClean();
+
                     return Task.CompletedTask;
+                }
             }
             else
             {
-                if (CurrentState == States.Add)
-                    TempPerson = null;
+                if (CachedEditingPerson != null)
+                {
+                    if (CahcedID == (parameter as Person).Id)
+                    {
+                        if (CurrentState == States.Add)
+                        {
+                            CurrentState = States.Edit;
+                            TempPerson = CachedEditingPerson;
+                            Title = $"Editing {TempPerson.FullName}";
+                        }
 
-                if (TempPerson != null)
-                    if (currentPerson != null && currentPerson.Id == (parameter as Person).Id)
+                        //TempPerson.MarkAsClean();
+
                         return Task.CompletedTask;
+                    }
+                    else
+                        CahcedID = null;
+                }
             }
 
             currentPerson = parameter == null ? new Person() { Id = Guid.NewGuid().ToString() } : parameter as Person;
@@ -197,7 +221,25 @@ namespace ListsOfPersons.ViewModels
             if (IsCanceling)
             {
                 IsCanceling = false;
-                TempPerson = null;
+
+                if (CurrentState == States.Add)
+                    CachedAddingPerson = null;
+                else
+                {
+                    CahcedID = null;
+                    CachedEditingPerson = null;
+                }
+            }
+            else /*if (TempPerson.IsDirty)*/
+            {
+                if (CurrentState == States.Add)
+                    CachedAddingPerson = TempPerson;
+                else
+                {
+                    if (CahcedID == null) 
+                        CahcedID = currentPerson.Id;
+                    CachedEditingPerson = TempPerson;
+                }
             }
 
             return Task.CompletedTask;
