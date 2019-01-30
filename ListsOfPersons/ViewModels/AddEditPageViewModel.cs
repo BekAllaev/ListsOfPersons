@@ -38,7 +38,7 @@ namespace ListsOfPersons.ViewModels
 
         PersonProxy CachedEditingPerson { set; get; } // Cached after suspended edit operation
 
-        string CahcedID { set; get; } // Идентификатор последней персоны Edit операции
+        string CahcedID { set; get; } // Идентификатор последней персоны сохраненный во время прерванной Edit операции
         #endregion
 
         #region Bindable properties
@@ -139,16 +139,16 @@ namespace ListsOfPersons.ViewModels
         {
             if (parameter == null)
             {
-                if (CachedAddingPerson != null)
+                if (CachedAddingPerson != null) 
                 {
-                    if (CurrentState == States.Edit)
+                    //Если последняя операций была Edit, то нужно вернуть пёрсона из операций Add
+                    //Иначе продолжить создавать нового пёрсона 
+                    if (CurrentState == States.Edit) 
                     {
                         Title = "Adding new person";
                         CurrentState = States.Add;
                         TempPerson = CachedAddingPerson;
                     }
-
-                    //TempPerson.MarkAsClean();
 
                     return Task.CompletedTask;
                 }
@@ -157,8 +157,12 @@ namespace ListsOfPersons.ViewModels
             {
                 if (CachedEditingPerson != null)
                 {
+                    //Если ID кэшировнного редактируемого пёрсона совпадает с ID входящим пёрсоном
+                    //то значит редактируемый пёрсон в кэше и входящий одни и тот же пёрсон
                     if (CahcedID == (parameter as Person).Id)
                     {
+                        //Если последняя операций была Add, то нужно вернуть пёрсона из операций Edit
+                        //Иначе продолжить редактировать пёрсона
                         if (CurrentState == States.Add)
                         {
                             CurrentState = States.Edit;
@@ -166,10 +170,9 @@ namespace ListsOfPersons.ViewModels
                             Title = $"Editing {TempPerson.FullName}";
                         }
 
-                        //TempPerson.MarkAsClean();
-
                         return Task.CompletedTask;
                     }
+                    //Иначе это разные пёрсоны то тогда удалить хранящийся ID 
                     else
                         CahcedID = null;
                 }
@@ -230,12 +233,14 @@ namespace ListsOfPersons.ViewModels
                     CachedEditingPerson = null;
                 }
             }
-            else /*if (TempPerson.IsDirty)*/
+            else
             {
                 if (CurrentState == States.Add)
                     CachedAddingPerson = TempPerson;
                 else
                 {
+                    //Если CahcedID null значит он либо ещё не был задан, 
+                    //либо пользователь начел редактировать другого пёрсона 
                     if (CahcedID == null) 
                         CahcedID = currentPerson.Id;
                     CachedEditingPerson = TempPerson;
